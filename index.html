@@ -548,20 +548,31 @@ function showResult(){
       sq.style.display = "none";
       wb.style.display = "block";
 
-      var total = 10;
+      var total = 15;
       var left = total;
+      var CIRC = 2 * Math.PI * 26;
       function tick(){
         if (left <= 0){
-          wb.innerHTML = '<div style="font-size:13px;color:var(--gold);font-weight:700">已解锁</div>';
+          wb.innerHTML = '<div style="font-size:14px;color:#F5C518;font-weight:700">已解锁</div>';
           expandFull();
           return;
         }
-        var pct = Math.round((total - left) / total * 100);
+        var done = (total - left) / total;
+        var off = (CIRC * done).toFixed(1);
         wb.innerHTML =
-          '<div style="height:2px;background:#2A303C;overflow:hidden;margin-bottom:10px">' +
-            '<i style="display:block;height:100%;width:' + pct + '%;background:#F5C518;' +
-            'transition:width 1s linear"></i></div>' +
-          '<div style="font-size:12.5px;color:var(--ink-3)">正在确认支付 · ' + left + ' 秒</div>';
+          '<div style="position:relative;width:76px;height:76px;margin:0 auto 12px">' +
+            '<svg width="76" height="76" viewBox="0 0 60 60">' +
+              '<circle cx="30" cy="30" r="26" fill="none" stroke="#2A303C" stroke-width="3"/>' +
+              '<circle cx="30" cy="30" r="26" fill="none" stroke="#F5C518" stroke-width="3" ' +
+                'stroke-linecap="round" stroke-dasharray="' + CIRC.toFixed(1) + '" ' +
+                'stroke-dashoffset="' + off + '" transform="rotate(-90 30 30)" ' +
+                'style="transition:stroke-dashoffset 1s linear"/>' +
+            '</svg>' +
+            '<div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;' +
+              'font-size:19px;font-weight:800;color:#EDEAE2">' + left + '</div>' +
+          '</div>' +
+          '<div style="font-size:12.5px;color:var(--ink-2);line-height:1.7">正在确认支付</div>' +
+          '<div style="font-size:11.5px;color:var(--ink-3);margin-top:4px">支付可能有延迟，请稍候</div>';
         left--;
         setTimeout(tick, 1000);
       }
