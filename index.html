@@ -274,7 +274,9 @@ var TYPES = {
     do: "你的作息一旦固定，状态会非常稳。但也很容易被一句「再玩五分钟」拖到一点半，而且你自己没感觉——因为你随时能睡着，所以从不觉得熬夜有代价。",
     avoid: "别因为「能睡着」就一直熬夜。能睡着不等于睡够了，长期欠债照样垮。",
     detail: "你不是「睡得好」，你是「入睡快」。这两件事不一样。很多人羡慕你沾枕头就着，但他们不知道，秒睡的人往往白天透支得厉害——身体在你还清醒的时候就已经在还债了。你能睡着，不代表你睡够了。",
-    tip: "固定一个上床时间，比睡多久更重要。"
+    tip: "固定一个上床时间，比睡多久更重要。",
+    buddy: "light", buddyWhy: "你不挑环境、不制造动静，浅眠的人最需要这样的同床人",
+    clash: "snooze", clashWhy: "他闹钟响十遍，你被吵醒十次——虽然你能立刻再睡着，但一晚上碎成十段"
   },
   rehearsal: {
     name: "复盘型", rare: "脑子关不掉的那类",
@@ -283,7 +285,9 @@ var TYPES = {
     do: "你想得比别人多，也做得比别人细。写东西、做计划、复盘细节，都是你的强项。代价是你很难「关掉」——连休息的时候都在后台运行。",
     avoid: "别在床上想事情。床只用来睡，想事去桌子前坐着想。",
     detail: "你不是失眠，你是脑子关不掉。白天说错的一句话、明天要交的东西、三年前的一个尴尬场面，会在你躺下的那一刻全部回来。这不是你想太多，是大脑把「躺下」当成了「整理时间」——它以为你终于有空了。",
-    tip: "睡前拿张纸，把明天要做的事写下来。写下来的事，脑子才肯放下。"
+    tip: "睡前拿张纸，把明天要做的事写下来。写下来的事，脑子才肯放下。",
+    buddy: "rehearsal", buddyWhy: "两个人都安静、都不打呼、都晚睡，互相不打扰",
+    clash: "phone", clashWhy: "你躺着想事情，他躺着刷视频，屏幕光一闪一闪，你的思路全断"
   },
   phone: {
     name: "手机陪睡型", rare: "知道不对但改不掉",
@@ -292,7 +296,9 @@ var TYPES = {
     do: "你白天的时间被别人占满，所以夜里会下意识地拖，想把属于自己的那点时间抢回来。真正让你放不下的不是手机，是「这一天又没有一件是为自己做的」。",
     avoid: "别在床上刷短视频。那个东西是按「让你停不下来」设计的，你赢不了。",
     detail: "你不是不想睡，你是舍不得结束这一天。白天的时间不属于你，只有躺下刷手机的那半小时是自己的。所以你不是被手机困住，你是在抢回一点属于自己的时间——只是用错了方式。",
-    tip: "把充电线挪到够不着的地方。别靠意志力，靠距离。"
+    tip: "把充电线挪到够不着的地方。别靠意志力，靠距离。",
+    buddy: "phone", buddyWhy: "都有光、都有声音，谁也不嫌谁",
+    clash: "light", clashWhy: "你的屏幕光对浅眠的人是灾难——他连你翻身都能醒"
   },
   sound: {
     name: "声响依赖型", rare: "绝对安静反而睡不着",
@@ -301,7 +307,9 @@ var TYPES = {
     do: "你在完全安静的环境里容易焦虑，有点背景音反而能专注——工作也一样，很多人需要咖啡馆的噪音才写得下去。你不是需要声音，是需要「不面对空白」。",
     avoid: "别听有情节的东西。剧情会让你想「再听一点」，白噪音不会。",
     detail: "绝对安静对你不是放松，是放大。没有别的声音，你就会听见自己的心跳、楼上的脚步，还有脑子里那些白天压下去的想法。有点声音，反而能把这些盖住——你要的不是安静，是「不用面对自己」。",
-    tip: "固定一个声音：同一个播客、同一段白噪音。重复的声音会变成入睡信号。"
+    tip: "固定一个声音：同一个播客、同一段白噪音。重复的声音会变成入睡信号。",
+    buddy: "sound", buddyWhy: "都要背景音，音量还能互相盖住",
+    clash: "light", clashWhy: "你开播客助眠，他一夜没合眼"
   },
   light: {
     name: "浅眠型", rare: "睡着比谁都难，醒得比谁都快",
@@ -310,7 +318,9 @@ var TYPES = {
     do: "你的身体一直处在轻度警戒状态，对环境变化特别敏感。这是天赋：你能察觉别人忽略的细节。也是负担：你很难真正放松下来。",
     avoid: "别在睡前喝酒。酒精让你更快睡着，但会让你后半夜一直醒。",
     detail: "你的睡眠是易碎品。别人翻个身你醒，楼上拖椅子你醒，醒了就很难再睡着。这不是你娇气，是你的神经系统一直没真正放松——它整晚都在值班，替你觉得「这里不安全」。",
-    tip: "耳塞和遮光眼罩，对你的效果比任何保健品都好。"
+    tip: "耳塞和遮光眼罩，对你的效果比任何保健品都好。",
+    buddy: "instant", buddyWhy: "他不会翻来覆去、不会半夜刷手机，是你最省心的同床人",
+    clash: "snooze", clashWhy: "五个闹钟、无数次起床，你被吵醒八次"
   },
   early: {
     name: "早鸟型", rare: "闹钟还没响就睁眼",
@@ -319,7 +329,9 @@ var TYPES = {
     do: "你的上午效率极高，晚上则基本报废。如果硬撑到深夜，第二天会加倍还回来，而且还不一定还得上。",
     avoid: "别因为「早醒」就觉得自己睡不够。醒得早不等于睡得好，看总时长。",
     detail: "你的生物钟比闹钟准。不管几点睡，早上都会在同一个时间睁眼，而且醒得很彻底。这既是天赋也是限制——你的上午值别人一整天，但到了晚上你基本就废了，硬撑也没用。",
-    tip: "把最重要的事放在早上。你的上午是别人的一整天。"
+    tip: "把最重要的事放在早上。你的上午是别人的一整天。",
+    buddy: "instant", buddyWhy: "你六点起床洗漱，他睡得像块石头，吵不醒",
+    clash: "light", clashWhy: "你一动他就醒，你五点起他四点就睁眼了"
   },
   snooze: {
     name: "赖床型", rare: "和闹钟搏斗的每一天",
@@ -328,7 +340,9 @@ var TYPES = {
     do: "你需要的不是更好的闹钟，是一个让你愿意起来的理由。起床困难，多数时候不是身体累，是「不太想面对今天」。",
     avoid: "别按贪睡键。那五分钟的睡眠质量极差，只会让你更困。",
     detail: "你和闹钟的关系是拉锯。响第一遍的时候你在算还能睡几分钟，第五遍的时候你在算迟到扣多少钱。这不是懒，是你的身体还没准备好被叫醒，而闹钟不会等你准备好。",
-    tip: "把闹钟放远，必须下床才能关。身体动起来，脑子才醒。"
+    tip: "把闹钟放远，必须下床才能关。身体动起来，脑子才醒。",
+    buddy: "early", buddyWhy: "他先起不跟你抢卫生间，你后起不吵他",
+    clash: "light", clashWhy: "你的闹钟响十遍，他已经在第七遍时彻底醒了"
   },
   weekend: {
     name: "周末补觉型", rare: "平时欠的债，周末一起还",
@@ -337,7 +351,9 @@ var TYPES = {
     do: "你的作息每周都在倒一次时差。周一的那种疲惫，很大一部分是周六睡太多造成的，不是工作本身。",
     avoid: "别指望周末补回来。睡眠债补不回来，只能少欠一点。",
     detail: "你在用周末还工作日的债。周一到周五每天欠两小时，周六一次睡到下午，然后把作息彻底打乱，周一更难起。这是一个越补越累的循环——你以为在充电，其实在倒时差。",
-    tip: "周末最多比平时多睡两小时。补太多，生物钟会更乱。"
+    tip: "周末最多比平时多睡两小时。补太多，生物钟会更乱。",
+    buddy: "weekend", buddyWhy: "作息都乱，谁也别嫌谁",
+    clash: "early", clashWhy: "他七点起来吃早饭，你睡到下午两点，中间被吵醒三次"
   }
 };
 
@@ -471,7 +487,7 @@ function expandFull(){
   html += '<div style="text-align:center;margin-top:26px">' +
           '<button class="ghost" onclick="showAtlas()" style="width:100%;padding:14px;' +
           'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
-          'font-size:14px;cursor:pointer;font-family:inherit">看看其他 7 型</button></div>';
+          'font-size:14px;cursor:pointer;font-family:inherit">再看一遍 8 型图鉴</button></div>';
   html += '<div style="font-size:12px;color:var(--ink-3);text-align:center;margin-top:14px">' +
           '建议截图保存</div>';
   html += '</div>';
@@ -498,7 +514,13 @@ function showAtlas(){
     h += '<span style="font-size:20px;font-weight:800;color:var(--ink-1)">' + t.name + '</span>';
     h += '</div>';
     h += '<div style="font-size:13px;color:#F5C518;margin-bottom:8px">' + t.rare + '</div>';
-    h += '<div style="font-size:14px;color:var(--ink-2);line-height:1.75">' + t.one + '</div>';
+    h += '<div style="font-size:14px;color:var(--ink-2);line-height:1.75;margin-bottom:10px">' + t.one + '</div>';
+    var b2 = TYPES[t.buddy], c2 = TYPES[t.clash];
+    if (b2 && c2){
+      h += '<div style="font-size:12.5px;color:var(--ink-3);line-height:1.8">' +
+           '好搭子：<span style="color:#2ecf4b">' + b2.name + '</span>　' +
+           '难搭：<span style="color:#ff7b72">' + c2.name + '</span></div>';
+    }
     h += '</div>';
   });
   h += '<div style="text-align:center;margin-top:28px">';
@@ -549,6 +571,31 @@ function showResult(){
   h += '<ul class="feat"><li>' + t.feat[0] + '</li>';
   if (FULL) h += '<li>' + t.feat[1] + '</li><li>' + t.feat[2] + '</li>';
   h += '</ul>';
+
+  /* 搭子 —— 免费可见 */
+  var bt = TYPES[t.buddy], ct = TYPES[t.clash];
+  h += '<div class="sec" style="margin-top:24px"><h4>你的搭子</h4>';
+  if (bt){
+    h += '<div style="border:1px solid #2f6b3a;background:rgba(46,207,75,.06);padding:14px 16px;margin-bottom:10px">';
+    h += '<div style="font-size:13px;color:#2ecf4b;margin-bottom:6px">睡得最好的组合 · ' + bt.name + '</div>';
+    h += '<div style="font-size:13.5px;color:var(--ink-2);line-height:1.75">' + t.buddyWhy + '</div>';
+    h += '</div>';
+  }
+  if (ct){
+    h += '<div style="border:1px solid #6b3535;background:rgba(255,95,86,.05);padding:14px 16px">';
+    h += '<div style="font-size:13px;color:#ff7b72;margin-bottom:6px">最难搭的组合 · ' + ct.name + '</div>';
+    h += '<div style="font-size:13.5px;color:var(--ink-2);line-height:1.75">' + t.clashWhy + '</div>';
+    h += '</div>';
+  }
+  h += '<div style="font-size:11.5px;color:var(--ink-3);margin-top:10px;line-height:1.7">' +
+       '依据：入睡速度、对环境的要求、是否会制造干扰（光 / 声音 / 闹钟）。</div>';
+  h += '</div>';
+
+  /* 图鉴 —— 免费可见 */
+  h += '<button class="ghost" onclick="showAtlas()" style="width:100%;padding:14px;' +
+       'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
+       'font-size:14px;cursor:pointer;font-family:inherit;margin:6px 0 22px">' +
+       '看看 8 种睡法都是什么 →</button>';
 
   if (FULL){
     h += '<div class="sec"><h4>适合做什么</h4><p>' + t.do + '</p></div>';
