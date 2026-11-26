@@ -65,17 +65,17 @@
     transition:width .45s cubic-bezier(.4,0,.2,1)}
 
   /* 月亮常驻 */
-  .moonbar{display:flex;justify-content:center;padding:16px 0 2px}
+  .moonbar{display:flex;justify-content:center;padding:0 0 14px}
   .moonbar svg{animation:floatMoon 5s ease-in-out infinite}
   .moonbar .t{animation:twinkle 2.8s ease-in-out infinite}
   .moonbar .t2{animation:twinkle 3.6s ease-in-out .7s infinite}
 
-  .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:8px 0 16px}
+  .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:4px 0 16px}
   .qwrap.enter{animation:fadeUp .32s cubic-bezier(.2,.9,.3,1) both}
   .qwrap.exit{animation:exitUp .18s ease both}
 
   .qtext{font-size:22px;line-height:1.55;font-weight:700;letter-spacing:-.01em;
-    margin:0 0 26px;color:var(--ink-1)}
+    margin:0 0 24px;color:var(--ink-1);text-align:center}
   .opts{display:flex;flex-direction:column;gap:9px}
   .opt{width:100%;text-align:left;background:var(--bg);color:var(--ink-1);
     border:1px solid var(--border);padding:16px 18px;min-height:56px;
@@ -177,22 +177,6 @@
     </div>
     <div class="pbar"><i id="pbar"></i></div>
 
-    <div class="moonbar">
-      <svg width="116" height="116" viewBox="0 0 72 72" fill="none">
-        <defs>
-          <mask id="phaseMask">
-            <rect width="72" height="72" fill="white"/>
-            <circle id="phaseCut" cx="48" cy="28" r="18" fill="black"
-                    style="transition:cx 1.1s cubic-bezier(.4,0,.2,1),cy 1.1s cubic-bezier(.4,0,.2,1)"/>
-          </mask>
-        </defs>
-        <g style="transform-origin:36px 36px;animation:floatMoon 5s ease-in-out infinite">
-          <circle cx="36" cy="37" r="21" fill="#2A2A28" mask="url(#phaseMask)"/>
-        </g>
-        <circle cx="14" cy="16" r="1.6" fill="#2A2A28" style="animation:twinkle 2.8s infinite"/>
-        <circle cx="60" cy="20" r="1.3" fill="#9a988f" style="animation:twinkle 3.6s .7s infinite"/>
-      </svg>
-    </div>
 
     <div class="qwrap" id="qwrap"></div>
   </section>
@@ -333,7 +317,20 @@ function renderQ(){
   document.getElementById("cur").textContent = curIdx + 1;
   document.getElementById("pbar").style.width = (curIdx / QS.length * 100) + "%";
 
-  var h = '<div class="qtext">' + q.q + '</div><div class="opts">';
+  var h = '<div class="moonbar">' +
+    '<svg width="96" height="96" viewBox="0 0 72 72" fill="none">' +
+      '<defs><mask id="phaseMask">' +
+        '<rect width="72" height="72" fill="white"/>' +
+        '<circle id="phaseCut" cx="48" cy="28" r="18" fill="black" ' +
+        'style="transition:cx 1.1s cubic-bezier(.4,0,.2,1),cy 1.1s cubic-bezier(.4,0,.2,1)"/>' +
+      '</mask></defs>' +
+      '<g style="transform-origin:36px 36px;animation:floatMoon 5s ease-in-out infinite">' +
+        '<circle cx="36" cy="37" r="21" fill="#2A2A28" mask="url(#phaseMask)"/>' +
+      '</g>' +
+      '<circle cx="14" cy="16" r="1.6" fill="#2A2A28" style="animation:twinkle 2.8s infinite"/>' +
+      '<circle cx="60" cy="20" r="1.3" fill="#9a988f" style="animation:twinkle 3.6s .7s infinite"/>' +
+    '</svg></div>';
+  h += '<div class="qtext">' + q.q + '</div><div class="opts">';
   q.o.forEach(function(o, i){
     h += '<button class="opt" data-i="' + i + '">' + o[0] + '</button>';
   });
