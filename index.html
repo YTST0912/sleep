@@ -241,7 +241,7 @@
     <button class="btn" id="start">开始</button>
     <div class="meta">
       3min 测测你是什么睡眠人格<br>
-      <span id="cnt">已测试人数：1043</span>
+      <span id="cnt">已测试人数：12847</span>
     </div>
     <div class="foot">
       测完记得发给你觉得睡得最差的那个人
@@ -402,7 +402,7 @@ var curIdx = 0;
   try{
     var n = parseInt(localStorage.getItem("sleep_cnt") || "0", 10) + 1;
     localStorage.setItem("sleep_cnt", n);
-    document.getElementById("cnt").textContent = "已测试人数：" + (1042 + n);
+    document.getElementById("cnt").textContent = "已测试人数：" + (12846 + n);
   }catch(e){}
 })();
 
