@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>12 题测出你是怎么睡的</title>
+<meta name="description" content="12 道题，3 分钟，测出你的睡眠人格。每个人都会睡，但睡法完全不一样。">
+<style>
+  :root{
+    --bg:#0f1115; --card:#171a21; --card2:#1e222b; --line:#2a2f3a;
+    --fg:#e6e9ef; --dim:#9aa3b2; --accent:#4c8dff; --gold:#f0b429;
+    --red:#ff5f56; --green:#27c93f;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 60px}
+  header{text-align:center;margin-bottom:28px}
+  h1{font-size:26px;margin:0 0 10px;letter-spacing:-.02em;line-height:1.35}
+  .sub{color:var(--dim);font-size:14px;margin:0}
+  .meta{display:inline-flex;gap:14px;margin-top:14px;font-size:12.5px;color:var(--dim)}
+  .meta span{background:var(--card2);padding:4px 10px;border-radius:20px}
+  .q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:14px}
+  .qn{color:var(--dim);font-size:12.5px;margin-bottom:6px;letter-spacing:.05em}
+  .qt{font-size:17px;font-weight:600;margin-bottom:16px;line-height:1.5}
+  .opt{display:block;width:100%;text-align:left;background:var(--card2);color:var(--fg);
+    border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin-bottom:9px;
+    font:15px/1.5 inherit;cursor:pointer;transition:.15s}
+  .opt:hover{border-color:#3d4757;background:#242a35}
+  .opt.sel{border-color:var(--accent);background:#1d2a41;color:#cfe0ff}
+  .bar{position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 70%,transparent);
+    padding:12px 0;z-index:5;margin-bottom:8px}
+  .bar i{display:block;height:4px;background:var(--card2);border-radius:3px;overflow:hidden}
+  .bar b{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+  button.go{width:100%;background:var(--accent);color:#fff;border:0;border-radius:11px;
+    padding:15px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px}
+  button.go:disabled{background:#2a3140;color:#5d6675;cursor:not-allowed}
+  .hidden{display:none}
+  /* 结果 */
+  .res{background:linear-gradient(160deg,#1b2433,#12161e);border:1px solid #2c3b55;
+    border-radius:16px;padding:26px 22px;margin-bottom:16px}
+  .rlabel{font-size:12.5px;color:var(--gold);letter-spacing:.1em;margin-bottom:8px}
+  .rname{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px;line-height:1.2}
+  .rone{color:var(--dim);font-size:15px;margin:0 0 20px}
+  .rfeat{list-style:none;padding:0;margin:0 0 20px}
+  .rfeat li{position:relative;padding-left:22px;margin-bottom:9px;font-size:14.5px;color:#cdd4e0}
+  .rfeat li:before{content:"—";position:absolute;left:0;color:var(--accent)}
+  .rbox{background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;margin-bottom:12px}
+  .rbox h4{margin:0 0 7px;font-size:13px;color:var(--gold);font-weight:600}
+  .rbox p{margin:0;font-size:14px;color:#cdd4e0;line-height:1.65}
+  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+  button.sec{flex:1;min-width:140px;background:transparent;color:var(--fg);border:1px solid var(--line);
+    border-radius:11px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+  button.sec:hover{border-color:#3d4757}
+  .shareMain{width:100%;background:linear-gradient(135deg,#4c8dff,#2f6fe0);color:#fff;border:0;
+    border-radius:11px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;
+    margin:4px 0 20px;box-shadow:0 6px 18px rgba(76,141,255,.25)}
+  .shareMain:hover{filter:brightness(1.06)}  .lock{position:relative;margin-top:18px;background:var(--card2);border:1px dashed #3a4454;border-radius:12px;padding:18px}
+  .lockmask{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
+  .lockmask span{font-size:12.5px;color:#5f6b7d;background:#151a22;border:1px solid #262d38;
+    border-radius:16px;padding:5px 11px;filter:blur(.4px)}
+  .unlock{width:100%;background:linear-gradient(135deg,#f0b429,#e0930f);color:#241a05;border:0;
+    border-radius:10px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
+  .unlock:hover{filter:brightness(1.05)}  .cta{background:#1a2436;border:1px solid #2c405c;border-radius:14px;padding:20px;margin-top:16px}
+  .cta h3{margin:0 0 8px;font-size:16px}
+  .cta p{color:var(--dim);font-size:14px;margin:0 0 14px}
+  .cta a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
+    padding:11px 20px;border-radius:10px;font-size:15px;font-weight:600}
+  footer{color:#4d5666;font-size:12px;text-align:center;margin-top:30px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div id="friendbar" class="hidden" style="background:#1a2740;border:1px solid #2c405c;border-radius:12px;padding:16px 18px;margin-bottom:20px">
+  <div style="font-size:12.5px;color:#7c9ac4;letter-spacing:.06em;margin-bottom:6px">你的朋友测出来是</div>
+  <div id="friendname" style="font-size:24px;font-weight:800;color:#cfe0ff;margin-bottom:4px"></div>
+  <div id="friendone" style="font-size:13.5px;color:#9aa3b2;line-height:1.6"></div>
+  <div style="margin-top:12px;font-size:14px;color:#8fb3e0;font-weight:600">你也测一下，看是不是同一型 ↓</div>
+</div>
+
+<header>
+  <h1>12 题，测出你<br>是怎么睡的</h1>
+  <p class="sub">每个人都会睡，但睡法完全不一样</p>
+  <div class="meta"><span>12 题</span><span>约 3 分钟</span><span>免费</span></div>
+</header>
+
+<div class="bar"><i><b id="prog"></b></i></div>
+<div id="quiz"></div>
+<button class="go" id="submit" disabled>看我的结果</button>
+
+<div id="out" class="hidden"></div>
+<canvas id="cv" width="1080" height="1560" class="hidden"></canvas>
+
+<footer>
+  结果只是参考，不是命。真正决定的是你愿不愿意动手做第一单。<br>
+  · 不收集任何信息 · 全程在你手机上跑 ·
+</footer>
+
+</div>
+
+<script>
+"use strict";
+
+/* ====== 只改这一处 ======
+   把 PAY_URL 换成你的面包多商品链接，例如：
+   var PAY_URL = "https://mbd.pub/o/bread/XXXXXX";
+   留空 = 显示「暂未开放」，不会误导用户。 */
+var PAY_URL = "";
+
+/* 完整版链接（面包多自动发货时发给买家的地址）
+   部署后把 SITE_URL 换成你的真实域名，例如 https://xxx.netlify.app/ */
+var SITE_URL = "";
+
+/* ============ 8 种类型 ============ */
+var TYPES = {
+  instant: {
+    name: "秒睡型", rare: "被所有人羡慕的那种",
+    one: "沾到枕头就着，别人数羊数到三百的时候，你已经做完一个梦了。",
+    feat: ["躺下到睡着，一般不超过五分钟", "在车上、沙发上、甚至站着都能睡着", "别人问你怎么睡着的，你说「就闭上眼啊」"],
+    do: "你的睡眠天赋很值钱。把睡觉时间固定下来，你基本不会有睡眠问题。",
+    avoid: "别因为「能睡着」就一直熬夜。能睡着不等于睡够了，长期欠债照样垮。"
+  },
+  rehearsal: {
+    name: "复盘型", rare: "脑子关不掉的那类",
+    one: "一躺下，白天说错的话、明天要做的事，全来了。",
+    feat: ["躺下之后开始回放今天的每一句对话", "想到明天的事，会顺便把一周的都想了", "越想睡越清醒，越清醒越焦虑"],
+    do: "睡前一小时把明天要做的事写在纸上。写下来的事，脑子才肯放下。",
+    avoid: "别在床上想事情。床只用来睡，想事去桌子前坐着想。"
+  },
+  phone: {
+    name: "手机陪睡型", rare: "知道不对但改不掉",
+    one: "不看手机睡不着，看完更睡不着。",
+    feat: ["躺下第一件事是摸手机", "说好只看五分钟，抬头已经一点半", "手机不在枕头边会不安"],
+    do: "把充电线挪到够不着的地方。不用靠意志力，靠距离。",
+    avoid: "别在床上刷短视频。那个东西是按「让你停不下来」设计的，你赢不了。"
+  },
+  sound: {
+    name: "声响依赖型", rare: "绝对安静反而睡不着",
+    one: "必须有点声音才睡得着，安静会让你更清醒。",
+    feat: ["睡觉要开风扇、白噪音或者播客", "完全安静的环境会让你胡思乱想", "出门住酒店，第一晚基本睡不着"],
+    do: "给自己准备固定的声音：同一个播客、同一段白噪音。重复的声音会成为入睡信号。",
+    avoid: "别听有情节的东西。剧情会让你想「再听一点」，白噪音不会。"
+  },
+  light: {
+    name: "浅眠型", rare: "睡着比谁都难，醒得比谁都快",
+    one: "一点动静就醒，醒了就很难再睡着。",
+    feat: ["楼上拖椅子你能醒", "别人翻身你也会醒", "睡了一整晚，早上还是像没睡"],
+    do: "耳塞 + 遮光眼罩，这两个东西对你的效果比任何保健品都好。",
+    avoid: "别在睡前喝酒。酒精让你更快睡着，但会让你后半夜一直醒。"
+  },
+  early: {
+    name: "早鸟型", rare: "闹钟还没响就睁眼",
+    one: "不管几点睡，早上都会在同一个时间醒，而且醒得很彻底。",
+    feat: ["闹钟一般用不上，你会早几分钟醒", "周末也睡不了懒觉，七点就睁眼", "早上的两个小时是你效率最高的时间"],
+    do: "把最重要的事放在早上。你的上午值别人一整天。",
+    avoid: "别因为「早醒」就觉得自己睡不够。醒得早不等于睡得好，看总时长。"
+  },
+  snooze: {
+    name: "赖床型", rare: "和闹钟搏斗的每一天",
+    one: "闹钟响第一遍的时候，你已经算好了还能睡几分钟。",
+    feat: ["闹钟设了五个，间隔五分钟", "每天都在「再睡五分钟」和「要迟到了」之间挣扎", "起床后的半小时是行尸走肉"],
+    do: "把闹钟放远一点，必须下床才能关。身体动起来，脑子才醒。",
+    avoid: "别按贪睡键。那五分钟的睡眠质量极差，只会让你更困。"
+  },
+  weekend: {
+    name: "周末补觉型", rare: "平时欠的债，周末一起还",
+    one: "工作日睡五六个小时，周末睡到下午，然后把作息彻底搞乱。",
+    feat: ["周一到周五靠意志力撑着", "周六睡到下午两点，起来天都黑了", "周日晚上睡不着，周一早上起不来"],
+    do: "周末最多比平时多睡两小时。补太多，你的生物钟会更乱。",
+    avoid: "别指望周末补回来。睡眠债补不回来，只能少欠一点。"
+  }
+};
+
+/* ============ 12 道题 ============ */
+var QS = [
+  { q: "躺下之后，你一般多久能睡着？",
+    o: [["五分钟以内，沾枕头就着", {instant:3}], ["半小时以上，脑子停不下来", {rehearsal:3}], ["看手机看到困为止", {phone:3}], ["不知道，反正经常天亮了还在躺", {early:3}]] },
+
+  { q: "睡前你最后做的一件事是？",
+    o: [["刷手机，说好五分钟", {phone:3}], ["开个播客或者白噪音", {sound:3}], ["躺着想明天要做什么", {rehearsal:3}], ["设好闹钟，然后倒头就睡", {snooze:3}]] },
+
+  { q: "早上闹钟响的时候，你？",
+    o: [["经常在闹钟响之前就醒了", {early:3}], ["按掉，再睡五分钟，再按掉", {snooze:3}], ["周末直接睡到下午", {weekend:3}], ["一响就起来，没什么挣扎", {instant:3}]] },
+
+  { q: "你一般怎么睡？",
+    o: [["侧躺，抱着东西", {light:3}], ["开着风扇或者电视才能睡", {sound:3}], ["几点睡全看第二天要不要早起", {weekend:3}], ["随便什么姿势，闭眼就着", {instant:3}]] },
+
+  { q: "半夜醒了，你会？",
+    o: [["翻个身继续睡，很快", {light:3}], ["看一眼手机，然后就睡不着了", {phone:3}], ["开始想事情，越想越清醒", {rehearsal:3}], ["几乎不会半夜醒", {instant:3}]] },
+
+  { q: "周末你一般几点起？",
+    o: [["跟平时差不多，睡不了懒觉", {early:3}], ["睡到中午，甚至下午", {weekend:3}], ["闹钟响了十遍才起", {snooze:3}], ["醒了但不起来，躺着刷手机", {phone:3}]] },
+
+  { q: "你的睡眠环境必须是？",
+    o: [["有点声音，绝对安静我睡不着", {sound:3}], ["必须全黑、必须安静", {light:3}], ["无所谓，什么环境都能睡", {instant:3}], ["必须是自己的床，换地方睡不着", {snooze:3}]] },
+
+  { q: "你做梦多吗？",
+    o: [["经常做，而且记得很清楚", {rehearsal:3}], ["偶尔，都是些乱七八糟的", {light:3}], ["很少，睡过去就什么都不知道", {instant:3}], ["一累就做梦，不累就不做", {weekend:3}]] },
+
+  { q: "有人在你旁边睡，你会？",
+    o: [["睡不着，动一下我就醒", {light:3}], ["得等他先睡着我才行", {sound:3}], ["没影响，我照样秒睡", {instant:3}], ["得背对着，各睡各的", {phone:3}]] },
+
+  { q: "早上醒来第一件事是？",
+    o: [["摸手机看时间，然后开始刷", {phone:3}], ["看时间，发现比闹钟早", {early:3}], ["再睡五分钟", {snooze:3}], ["想今天能不能不上班", {weekend:3}]] },
+
+  { q: "你一般睡几个小时？",
+    o: [["工作日五六个，周末十个小时", {weekend:3}], ["固定七小时，很规律", {early:3}], ["睡够八小时也还是累", {light:3}], ["看情况，有时候四小时也精神", {rehearsal:3}]] },
+
+  { q: "别人说你睡觉的时候？",
+    o: [["「你怎么做到的，一沾枕头就没声了」", {instant:3}], ["「你半夜还在刷手机吧」", {phone:3}], ["「叫都叫不醒」", {snooze:3}], ["「你睡觉是不是开了一晚上电视」", {sound:3}]] }
+];
+
+/* ============ 逻辑 ============ */
+var answers = new Array(QS.length).fill(-1);
+
+function renderQuiz(){
+  var h = "";
+  QS.forEach(function(item, i){
+    h += '<div class="q" id="q' + i + '"><div class="qn">第 ' + (i+1) + ' / ' + QS.length + ' 题</div>';
+    h += '<div class="qt">' + item.q + '</div>';
+    item.o.forEach(function(o, j){
+      h += '<button class="opt' + (answers[i] === j ? " sel" : "") + '" data-q="' + i + '" data-o="' + j + '">' + o[0] + '</button>';
+    });
+    h += '</div>';
+  });
+  document.getElementById("quiz").innerHTML = h;
+  document.querySelectorAll(".opt").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      var qi = +btn.dataset.q, oi = +btn.dataset.o;
+      answers[qi] = oi;
+      document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function(b){ b.classList.remove("sel"); });
+      btn.classList.add("sel");
+      updateProgress();
+    });
+  });
+  updateProgress();
+}
+
+function updateProgress(){
+  var done = answers.filter(function(a){ return a >= 0; }).length;
+  document.getElementById("prog").style.width = (done / QS.length * 100) + "%";
+  document.getElementById("submit").disabled = done < QS.length;
+  document.getElementById("submit").textContent = done < QS.length
+    ? ("还有 " + (QS.length - done) + " 题")
+    : "看我的结果";
+}
+
+function calc(){
+  var score = {};
+  Object.keys(TYPES).forEach(function(k){ score[k] = 0; });
+  answers.forEach(function(oi, qi){
+    var m = QS[qi].o[oi][1];
+    Object.keys(m).forEach(function(k){ score[k] += m[k]; });
+  });
+  var best = null, bestV = -1;
+  Object.keys(score).forEach(function(k){
+    if (score[k] > bestV){ bestV = score[k]; best = k; }
+  });
+  // 第二型
+  var second = null, sV = -1;
+  Object.keys(score).forEach(function(k){
+    if (k !== best && score[k] > sV){ sV = score[k]; second = k; }
+  });
+  return { main: best, second: second, score: score };
+}
+
+function renderResult(r){
+  var t = TYPES[r.main], s = TYPES[r.second];
+  var FULL = /[?&]full=1/.test(location.search);
+
+  var h = '<div class="res">';
+  h += '<div class="rlabel">你的结果 · ' + t.rare + '</div>';
+  h += '<div class="rname">' + t.name + '</div>';
+  h += '<p class="rone">' + t.one + '</p>';
+
+  /* 分享按钮提到最前 —— 传播是链式的，这一步比看内容重要 */
+  h += '<button class="shareMain" id="share">发给我朋友，让他们也测 →</button>';
+
+  /* 免费只给第一条 —— 吊胃口 */
+  h += '<ul class="rfeat"><li>' + t.feat[0] + '</li>';
+  if (FULL){
+    h += '<li>' + t.feat[1] + '</li><li>' + t.feat[2] + '</li>';
+  }
+  h += '</ul>';
+
+  if (FULL){
+    h += '<div class="rbox"><h4>适合做什么</h4><p>' + t.do + '</p></div>';
+    h += '<div class="rbox"><h4>要避开的坑</h4><p>' + t.avoid + '</p></div>';
+    h += '<div class="rbox"><h4>你的第二型：' + s.name + '</h4><p>两条路可以同时走。主业用「' + t.name + '」的方式，副业试「' + s.name + '」——很多人是这样起步的。</p></div>';
+    h += '<div class="rbox" style="border:1px solid #2a5a30"><h4 style="color:#27c93f">完整版已解锁</h4><p>这是你的完整报告。建议截图存下来，或者长按保存。</p></div>';
+  } else {
+    /* 锁定区 */
+    h += '<div class="lock" id="lockbox">';
+    h += '<div class="lockmask"><span>还有 2 条特征</span><span>适合做什么</span><span>要避开的坑</span><span>你的第二型</span></div>';
+    h += '<button class="unlock" id="unlock">解锁完整结果 · ¥9.9</button>';
+    h += '<div style="font-size:12px;color:#5f6b7d;text-align:center;margin-top:10px">一次付费，永久可看</div>';
+    h += '</div>';
+  }
+
+  h += '</div>';
+
+  h += '<div class="btnrow">';
+  h += '<button class="sec" id="save">保存结果图</button>';
+  h += '<button class="sec" id="again">重新测一次</button>';
+  h += '</div>';
+
+  if (!FULL){
+    h += '<div class="cta" id="paybox" style="display:none">';
+    if (PAY_URL){
+      h += '<h3>解锁完整报告 · ¥9.9</h3>';
+      h += '<p>包含：另外 2 条特征 · 适合做什么 · 要避开的坑 · 你的第二型</p>';
+      h += '<a id="paylink" href="' + PAY_URL + '" target="_blank" rel="noopener" style="display:block;text-align:center;background:linear-gradient(135deg,#f0b429,#e0930f);color:#241a05;border-radius:11px;padding:15px;font-size:16px;font-weight:800;text-decoration:none">立即解锁 ¥9.9</a>';
+      h += '<div style="font-size:12px;color:#5f6b7d;text-align:center;margin-top:10px">付款后自动收到完整版链接，全程无需等待</div>';
+    } else {
+      h += '<h3>完整报告暂未开放</h3>';
+      h += '<p>作者还没接上支付。你可以先截图保存免费部分。</p>';
+    }
+    h += '</div>';
+  }
+
+  return h;
+}
+
+/* ============ 生成结果图 ============ */
+function drawCard(r){
+  var t = TYPES[r.main];
+  var cv = document.getElementById("cv");
+  var W = 1080, H = 1560;
+  cv.width = W; cv.height = H;
+  var g = cv.getContext("2d");
+
+  // 背景
+  var grd = g.createLinearGradient(0, 0, 0, H);
+  grd.addColorStop(0, "#1b2433");
+  grd.addColorStop(1, "#0d1015");
+  g.fillStyle = grd;
+  g.fillRect(0, 0, W, H);
+
+  // 顶部细线
+  g.fillStyle = "#4c8dff";
+  g.fillRect(72, 96, 96, 4);
+
+  g.fillStyle = "#9aa3b2";
+  g.font = "28px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText("12 题测出你适合靠什么赚钱", 72, 168);
+
+  g.fillStyle = "#f0b429";
+  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText("你的结果 · " + t.rare, 72, 268);
+
+  g.fillStyle = "#ffffff";
+  g.font = "bold 82px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText(t.name, 72, 372);
+
+  g.fillStyle = "#b6c0d0";
+  g.font = "32px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  wrapText(g, t.one, 72, 440, W - 144, 48);
+
+  // 三条特征
+  var y = 580;
+  g.fillStyle = "#cdd4e0";
+  g.font = "30px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  t.feat.forEach(function(f){
+    g.fillStyle = "#4c8dff";
+    g.fillText("—", 72, y);
+    g.fillStyle = "#cdd4e0";
+    y = wrapText(g, f, 118, y, W - 200, 44) + 22;
+  });
+
+  // 适合做什么
+  y += 30;
+  g.fillStyle = "#f0b429";
+  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText("适合做什么", 72, y);
+  y += 46;
+  g.fillStyle = "#cdd4e0";
+  g.font = "28px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  y = wrapText(g, t.do, 72, y, W - 144, 42) + 26;
+
+  // 底部
+  g.fillStyle = "#2a3342";
+  g.fillRect(72, H - 210, W - 144, 2);
+  g.fillStyle = "#8d97a8";
+  g.font = "26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText("你呢？搜「12 题测出你适合靠什么赚钱」", 72, H - 150);
+  g.fillStyle = "#4c8dff";
+  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+  g.fillText("[ 你的链接放在这里 ]", 72, H - 100);
+
+  return cv.toDataURL("image/png");
+}
+
+function wrapText(g, text, x, y, maxW, lh){
+  var line = "";
+  for (var i = 0; i < text.length; i++){
+    var test = line + text[i];
+    if (g.measureText(test).width > maxW && line){
+      g.fillText(line, x, y);
+      line = text[i];
+      y += lh;
+    } else {
+      line = test;
+    }
+  }
+  if (line) g.fillText(line, x, y);
+  return y + lh;
+}
+
+/* ============ 事件 ============ */
+document.getElementById("submit").addEventListener("click", function(){
+  var r = calc();
+  var out = document.getElementById("out");
+  out.className = "";
+  out.innerHTML = renderResult(r);
+  window.scrollTo({top: 0, behavior: "smooth"});
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("submit").classList.add("hidden");
+  document.getElementById("prog").style.width = "100%";
+
+  document.getElementById("save").addEventListener("click", function(){
+    var url = drawCard(r);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "我的赚钱类型.png";
+    a.click();
+  });
+
+  document.getElementById("share").addEventListener("click", function(){
+    var base = location.origin + location.pathname;
+    if (location.protocol === "file:") base = location.href.split("?")[0];
+    var link = base + "?r=" + r.main;
+    var txt = "我测出来是「" + TYPES[r.main].name + "」——" + TYPES[r.main].rare + "。\n你也测测，看是不是同一型：\n" + link + "\n测完把你的结果发我";
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(txt).then(function(){
+        alert("已复制，去微信粘贴给朋友：\n\n" + txt);
+      }).catch(function(){ prompt("复制这段发给朋友：", txt); });
+    } else {
+      prompt("复制这段发给朋友：", txt);
+    }
+  });
+
+  var ub = document.getElementById("unlock");
+  if (ub){
+    ub.addEventListener("click", function(){
+      var pb = document.getElementById("paybox");
+      pb.style.display = "block";
+      pb.scrollIntoView({behavior:"smooth", block:"center"});
+    });
+  }
+
+  document.getElementById("again").addEventListener("click", function(){
+    answers = new Array(QS.length).fill(-1);
+    document.getElementById("quiz").classList.remove("hidden");
+    document.getElementById("submit").classList.remove("hidden");
+    out.className = "hidden";
+    out.innerHTML = "";
+    renderQuiz();
+    window.scrollTo({top: 0});
+  });
+
+  document.getElementById("contact").addEventListener("click", function(e){
+    e.preventDefault();
+    alert("把这里换成你的微信或闲鱼链接");
+  });
+});
+
+renderQuiz();
+
+/* 分享进来的链接：显示朋友的结果 */
+(function(){
+  var q = (location.search || "").replace(/^\?/, "");
+  var m = /(?:^|&)r=([a-z]+)/.exec(q);
+  if (m && TYPES[m[1]]){
+    var t = TYPES[m[1]];
+    document.getElementById("friendname").textContent = t.name;
+    document.getElementById("friendone").textContent = t.one;
+    document.getElementById("friendbar").classList.remove("hidden");
+  }
+})();
+</script>
+</body>
+</html>
