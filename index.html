@@ -7,95 +7,131 @@
 <meta name="description" content="12 道题，3 分钟，测出你的睡眠人格。">
 <style>
   :root{
-    --paper:#faf8f4;
-    --ink:#1a1a1a;
-    --ink2:#5c5751;
-    --ink3:#9c9690;
-    --line:#e3ded6;
-    --card:#ffffff;
-    --accent:#c08a4a;
+    --paper:#faf8f4; --ink:#1a1a1a; --ink2:#5c5751; --ink3:#9c9690;
+    --line:#e3ded6; --card:#fff; --accent:#c08a4a;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
     font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
     -webkit-font-smoothing:antialiased}
   body{min-height:100dvh;overflow-x:hidden}
+  .page{min-height:100dvh;max-width:520px;margin:0 auto;
+    padding:0 26px env(safe-area-inset-bottom,0);display:flex;flex-direction:column}
 
-  .page{min-height:100dvh;max-width:520px;margin:0 auto;padding:0 26px env(safe-area-inset-bottom,0);
-    display:flex;flex-direction:column}
+  /* ================= 动画 ================= */
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-12px) rotate(-2deg)}}
+  @keyframes twinkle{0%,100%{opacity:.2;transform:scale(.85)}50%{opacity:1;transform:scale(1.15)}}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes fadeUpBig{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+  @keyframes popIn{0%{opacity:0;transform:scale(.86)}55%{opacity:1;transform:scale(1.04)}100%{transform:scale(1)}}
+  @keyframes breathe{0%,100%{opacity:.55}50%{opacity:1}}
+  @keyframes exitUp{to{opacity:0;transform:translateY(-26px) scale(.98)}}
+  @keyframes enterUp{from{opacity:0;transform:translateY(30px) scale(.98)}to{opacity:1;transform:none}}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-3px)}75%{transform:translateX(3px)}}
 
   /* ---------- 封面 ---------- */
   #cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-    text-align:center;padding:40px 0 32px}
-  #cover .brand{font-size:56px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:14px}
-  #cover h1{font-size:22px;font-weight:700;margin:0 0 44px;letter-spacing:-.01em}
-  #cover .art{margin:0 0 48px}
+    text-align:center;padding:36px 0 30px}
+  #cover.leaving{animation:fadeUp .3s reverse both}
+
+  .brand{font-size:58px;font-weight:900;letter-spacing:-.045em;line-height:1;
+    margin-bottom:14px;animation:fadeUpBig .7s cubic-bezier(.2,.9,.3,1) both}
+  #cover h1{font-size:21px;font-weight:700;margin:0 0 40px;letter-spacing:-.01em;
+    animation:fadeUp .7s cubic-bezier(.2,.9,.3,1) .12s both}
+
+  .art{margin:0 0 44px;animation:fadeUp .8s cubic-bezier(.2,.9,.3,1) .24s both}
+  .art svg .moon{transform-origin:78px 70px;animation:float 5.5s ease-in-out infinite}
+  .art svg .s1{animation:twinkle 2.6s ease-in-out infinite}
+  .art svg .s2{animation:twinkle 3.4s ease-in-out .6s infinite}
+  .art svg .s3{animation:twinkle 2.1s ease-in-out 1.1s infinite}
+  .art svg .zzz{animation:breathe 3s ease-in-out infinite}
+
   #cover .btn{width:100%;max-width:300px;background:var(--ink);color:#fff;border:0;
-    padding:20px;font-size:18px;font-weight:700;letter-spacing:.06em;cursor:pointer;
-    font-family:inherit;border-radius:2px}
-  #cover .btn:active{opacity:.82}
-  #cover .meta{margin-top:20px;font-size:13.5px;color:var(--ink3);line-height:2}
-  #cover .foot{margin-top:36px;font-size:12px;color:var(--ink3);line-height:1.9}
+    padding:20px;font-size:18px;font-weight:700;letter-spacing:.07em;cursor:pointer;
+    font-family:inherit;border-radius:2px;animation:fadeUp .7s cubic-bezier(.2,.9,.3,1) .38s both;
+    transition:transform .12s,opacity .12s}
+  #cover .btn:active{transform:scale(.97);opacity:.85}
+  #cover .meta{margin-top:20px;font-size:13.5px;color:var(--ink3);line-height:2;
+    animation:fadeUp .7s .5s both}
+  #cover .foot{margin-top:34px;font-size:12px;color:var(--ink3);line-height:1.9;
+    animation:fadeUp .7s .58s both}
 
   /* ---------- 题目 ---------- */
-  #quiz{flex:1;display:flex;flex-direction:column;padding:26px 0 30px}
+  #quiz{flex:1;display:flex;flex-direction:column;padding:26px 0 30px;animation:enterUp .38s cubic-bezier(.2,.9,.3,1) both}
   .pbar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
   .pbar i{display:block;height:100%;width:0;background:var(--ink);
-    transition:width .45s cubic-bezier(.4,0,.2,1)}
-  .cnt{margin-top:14px;font-size:13px;color:var(--ink3);letter-spacing:.12em;text-align:center}
+    transition:width .5s cubic-bezier(.4,0,.2,1)}
+  .cnt{margin-top:14px;font-size:13px;color:var(--ink3);letter-spacing:.14em;text-align:center}
 
-  .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 0 24px}
-  .qnum{font-size:13px;color:var(--accent);letter-spacing:.18em;margin-bottom:16px}
-  .qtext{font-size:26px;line-height:1.5;font-weight:800;letter-spacing:-.01em;margin:0 0 38px}
-  .opts{display:flex;flex-direction:column;gap:12px}
+  .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:16px 0 20px}
+  .qwrap.enter{animation:enterUp .34s cubic-bezier(.2,.9,.3,1) both}
+  .qwrap.exit{animation:exitUp .2s ease both}
+
+  .qnum{font-size:12.5px;color:var(--accent);letter-spacing:.2em;margin-bottom:14px}
+  .qtext{font-size:26px;line-height:1.5;font-weight:800;letter-spacing:-.012em;margin:0 0 34px}
+  .opts{display:flex;flex-direction:column;gap:11px}
   .opt{width:100%;text-align:left;background:var(--card);color:var(--ink);
     border:1.5px solid var(--line);border-radius:3px;padding:19px 20px;
-    font:16.5px/1.55 inherit;cursor:pointer;transition:.14s}
-  .opt:active{transform:scale(.99)}
-  .opt.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
-
-  .qa{animation:qaIn .34s cubic-bezier(.22,.9,.28,1) both}
-  .qo{animation:qaOut .2s ease both}
-  @keyframes qaIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-  @keyframes qaOut{to{opacity:0;transform:translateY(-14px)}}
+    font:16.5px/1.55 inherit;cursor:pointer;
+    transition:background .16s,border-color .16s,color .16s,transform .1s;
+    animation:fadeUp .38s cubic-bezier(.2,.9,.3,1) both}
+  .opt:nth-child(1){animation-delay:.04s}
+  .opt:nth-child(2){animation-delay:.10s}
+  .opt:nth-child(3){animation-delay:.16s}
+  .opt:nth-child(4){animation-delay:.22s}
+  .opt:active{transform:scale(.985)}
+  .opt.sel{background:var(--ink);color:#fff;border-color:var(--ink);animation:shake .28s ease}
 
   /* ---------- 结果 ---------- */
-  #result{flex:1;padding:34px 0 50px}
-  .rTop{text-align:center;padding-bottom:30px;border-bottom:1px solid var(--line);margin-bottom:30px}
-  .rKick{font-size:12.5px;color:var(--accent);letter-spacing:.18em;margin-bottom:14px}
-  .rName{font-size:42px;font-weight:900;letter-spacing:-.03em;line-height:1.15;margin:0 0 16px}
-  .rOne{font-size:16px;color:var(--ink2);line-height:1.8;margin:0}
+  #result{flex:1;padding:30px 0 40px;animation:enterUp .42s cubic-bezier(.2,.9,.3,1) both}
+  .rTop{text-align:center;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
+  .rKick{font-size:12px;color:var(--accent);letter-spacing:.2em;margin-bottom:14px;
+    animation:fadeUp .5s both}
+  .rName{font-size:44px;font-weight:900;letter-spacing:-.035em;line-height:1.12;
+    margin:0 0 16px;animation:popIn .62s cubic-bezier(.2,.9,.3,1) .06s both}
+  .rOne{font-size:16px;color:var(--ink2);line-height:1.8;margin:0;animation:fadeUp .5s .18s both}
 
   .shareBar{width:100%;background:var(--ink);color:#fff;border:0;border-radius:2px;
     padding:18px;font-size:17px;font-weight:700;letter-spacing:.03em;cursor:pointer;
-    font-family:inherit;margin:26px 0 30px}
-  .shareBar:active{opacity:.85}
+    font-family:inherit;margin:24px 0 28px;animation:fadeUp .5s .26s both;
+    transition:transform .12s,opacity .12s}
+  .shareBar:active{transform:scale(.975);opacity:.85}
 
-  .feat{list-style:none;padding:0;margin:0 0 26px}
+  .feat{list-style:none;padding:0;margin:0 0 24px}
   .feat li{position:relative;padding:15px 0 15px 26px;border-bottom:1px solid var(--line);
-    font-size:16px;line-height:1.75;color:var(--ink)}
+    font-size:16px;line-height:1.75;animation:fadeUp .5s both}
+  .feat li:nth-child(1){animation-delay:.32s}
+  .feat li:nth-child(2){animation-delay:.38s}
+  .feat li:nth-child(3){animation-delay:.44s}
   .feat li:last-child{border-bottom:0}
   .feat li:before{content:"";position:absolute;left:4px;top:24px;width:7px;height:7px;
     border-radius:50%;background:var(--accent)}
 
-  .sec{margin-bottom:26px}
-  .sec h4{margin:0 0 10px;font-size:13px;color:var(--accent);letter-spacing:.14em;font-weight:700}
+  .sec{margin-bottom:24px;animation:fadeUp .5s .5s both}
+  .sec h4{margin:0 0 9px;font-size:12.5px;color:var(--accent);letter-spacing:.16em;font-weight:700}
   .sec p{margin:0;font-size:16px;line-height:1.8;color:var(--ink2)}
 
-  .lock{border:1.5px dashed var(--line);border-radius:3px;padding:26px 20px;margin:30px 0;text-align:center}
+  .lock{border:1.5px dashed var(--line);border-radius:3px;padding:26px 20px;margin:28px 0;
+    text-align:center;animation:fadeUp .5s .5s both}
   .lock b{display:block;font-size:18px;margin-bottom:8px}
   .lock p{margin:0 0 20px;font-size:14px;color:var(--ink3);line-height:1.7}
   .unlockBtn{width:100%;background:var(--ink);color:#fff;border:0;border-radius:2px;
-    padding:18px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;display:block;
-    text-decoration:none}
+    padding:18px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;
+    display:block;text-decoration:none;transition:transform .12s}
+  .unlockBtn:active{transform:scale(.975)}
 
-  .subs{display:flex;gap:10px;margin-top:14px}
+  .subs{display:flex;gap:10px;margin-top:12px;animation:fadeUp .5s .58s both}
   .ghost{flex:1;background:transparent;color:var(--ink2);border:1.5px solid var(--line);
-    border-radius:2px;padding:15px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+    border-radius:2px;padding:15px;font-size:15px;font-weight:600;cursor:pointer;
+    font-family:inherit;transition:background .15s}
+  .ghost:active{background:#f0ece4}
 
-  footer{color:var(--ink3);font-size:12px;text-align:center;padding:30px 0 20px;line-height:1.9}
+  footer{color:var(--ink3);font-size:12px;text-align:center;padding:28px 0 18px;line-height:1.9}
 
   .hidden{display:none!important}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  }
 </style>
 </head>
 <body>
@@ -106,20 +142,26 @@
     <h1>测测你是怎么睡的</h1>
 
     <div class="art">
-      <svg width="150" height="150" viewBox="0 0 150 150" fill="none">
-        <circle cx="78" cy="70" r="46" fill="#1a1a1a"/>
-        <circle cx="98" cy="56" r="38" fill="#faf8f4"/>
-        <circle cx="34" cy="34" r="3.5" fill="#1a1a1a"/>
-        <circle cx="122" cy="108" r="2.5" fill="#1a1a1a"/>
-        <circle cx="26" cy="104" r="2" fill="#c08a4a"/>
-        <path d="M40 128h70" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      <svg width="160" height="160" viewBox="0 0 160 160" fill="none">
+        <g class="moon">
+          <circle cx="80" cy="78" r="46" fill="#1a1a1a"/>
+          <circle cx="100" cy="62" r="38" fill="#faf8f4"/>
+        </g>
+        <circle class="s1" cx="32" cy="34" r="3.2" fill="#1a1a1a"/>
+        <circle class="s2" cx="128" cy="40" r="2.4" fill="#c08a4a"/>
+        <circle class="s3" cx="24" cy="104" r="2" fill="#1a1a1a"/>
+        <g class="zzz" fill="#c08a4a">
+          <text x="112" y="34" font-size="15" font-weight="800" font-family="sans-serif">z</text>
+          <text x="124" y="22" font-size="11" font-weight="800" font-family="sans-serif">z</text>
+        </g>
+        <path d="M44 134h72" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
       </svg>
     </div>
 
     <button class="btn" id="start">开始测试</button>
     <div class="meta">
       3min 测测你的睡眠人格<br>
-      <span id="cnt" style="color:var(--ink3)">已测试人数：1</span>
+      <span id="cnt">已测试人数：1043</span>
     </div>
     <div class="foot">
       结果只是参考，不是诊断<br>
@@ -141,7 +183,6 @@
 <script>
 "use strict";
 
-/* ====== 只改这一处 ====== */
 var PAY_URL = "";
 
 var TYPES = {
@@ -244,7 +285,6 @@ var QS = [
 var answers = new Array(QS.length).fill(-1);
 var curIdx = 0;
 
-/* 本地计数（只在本机累加，不联网） */
 (function(){
   try{
     var n = parseInt(localStorage.getItem("sleep_cnt") || "0", 10) + 1;
@@ -254,11 +294,18 @@ var curIdx = 0;
 })();
 
 document.getElementById("start").addEventListener("click", function(){
-  document.getElementById("cover").classList.add("hidden");
-  document.getElementById("quiz").classList.remove("hidden");
-  document.getElementById("total").textContent = QS.length;
-  curIdx = 0;
-  renderQ();
+  var cv = document.getElementById("cover");
+  cv.style.transition = "opacity .26s, transform .26s";
+  cv.style.opacity = "0";
+  cv.style.transform = "translateY(-16px)";
+  setTimeout(function(){
+    cv.classList.add("hidden");
+    var q = document.getElementById("quiz");
+    q.classList.remove("hidden");
+    document.getElementById("total").textContent = QS.length;
+    curIdx = 0;
+    renderQ();
+  }, 220);
 });
 
 function renderQ(){
@@ -274,9 +321,10 @@ function renderQ(){
   h += '</div>';
 
   var w = document.getElementById("qwrap");
+  w.className = "qwrap";
   w.innerHTML = h;
-  w.classList.remove("qo");
-  w.classList.add("qa");
+  void w.offsetWidth;
+  w.classList.add("enter");
 
   w.querySelectorAll(".opt").forEach(function(b){
     b.addEventListener("click", function(){
@@ -285,14 +333,14 @@ function renderQ(){
       b.classList.add("sel");
       answers[curIdx] = +b.dataset.i;
       setTimeout(function(){
-        w.classList.remove("qa");
-        w.classList.add("qo");
+        w.classList.remove("enter");
+        w.classList.add("exit");
         setTimeout(function(){
           curIdx++;
           if (curIdx >= QS.length) showResult();
           else renderQ();
-        }, 190);
-      }, 230);
+        }, 210);
+      }, 300);
     });
   });
 }
@@ -325,7 +373,6 @@ function showResult(){
   h += '</div>';
 
   h += '<button class="shareBar" id="share">发给我朋友，让他们也测 →</button>';
-
   h += '<ul class="feat"><li>' + t.feat[0] + '</li>';
   if (FULL) h += '<li>' + t.feat[1] + '</li><li>' + t.feat[2] + '</li>';
   h += '</ul>';
@@ -336,21 +383,15 @@ function showResult(){
     h += '<div class="sec"><h4>你的第二型 · ' + s.name + '</h4><p>你大部分时候是「' +
          t.name + '」，但在某些状态下会切到「' + s.name + '」。</p></div>';
   } else {
-    h += '<div class="lock">';
-    h += '<b>还有 2 条特征没给你看</b>';
+    h += '<div class="lock"><b>还有 2 条特征没给你看</b>';
     h += '<p>以及：你该注意什么、你的第二型是什么</p>';
-    if (PAY_URL){
-      h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
-    } else {
-      h += '<p style="margin:0">完整版暂未开放</p>';
-    }
+    if (PAY_URL) h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
+    else h += '<p style="margin:0">完整版暂未开放</p>';
     h += '</div>';
   }
 
-  h += '<div class="subs">';
-  h += '<button class="ghost" id="save">保存结果图</button>';
-  h += '<button class="ghost" id="again">重新测一次</button>';
-  h += '</div>';
+  h += '<div class="subs"><button class="ghost" id="save">保存结果图</button>' +
+       '<button class="ghost" id="again">重新测一次</button></div>';
   h += '<footer>结果只是参考，不是诊断。<br>不收集任何信息，全程在你手机上跑。</footer>';
 
   var box = document.getElementById("result");
@@ -368,9 +409,7 @@ function showResult(){
       navigator.clipboard.writeText(txt).then(function(){
         alert("已复制，去微信粘贴给朋友：\n\n" + txt);
       }).catch(function(){ prompt("复制这段发给朋友：", txt); });
-    } else {
-      prompt("复制这段发给朋友：", txt);
-    }
+    } else prompt("复制这段发给朋友：", txt);
   });
 
   document.getElementById("save").addEventListener("click", function(){
@@ -381,14 +420,15 @@ function showResult(){
   document.getElementById("again").addEventListener("click", function(){
     answers = new Array(QS.length).fill(-1);
     curIdx = 0;
-    document.getElementById("result").classList.add("hidden");
-    document.getElementById("result").innerHTML = "";
-    document.getElementById("cover").classList.remove("hidden");
+    var box2 = document.getElementById("result");
+    box2.classList.add("hidden"); box2.innerHTML = "";
+    var cv = document.getElementById("cover");
+    cv.classList.remove("hidden");
+    cv.style.opacity = "1"; cv.style.transform = "none";
     window.scrollTo({top:0});
   });
 }
 
-/* ---------- 结果图（浅色版） ---------- */
 function wrapText(g, text, x, y, maxW, lh){
   var line = "";
   for (var i = 0; i < text.length; i++){
@@ -409,51 +449,49 @@ function drawCard(r){
   var F = "-apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
 
   g.fillStyle = "#faf8f4"; g.fillRect(0, 0, W, H);
-
-  g.fillStyle = "#1a1a1a"; g.font = "bold 68px " + F;
-  g.fillText("sleep", 72, 150);
-  g.font = "32px " + F; g.fillStyle = "#5c5751";
-  g.fillText("测测你是怎么睡的", 72, 210);
+  g.fillStyle = "#1a1a1a"; g.font = "bold 62px " + F;
+  g.fillText("sleep", 72, 142);
+  g.fillStyle = "#5c5751"; g.font = "30px " + F;
+  g.fillText("测测你是怎么睡的", 72, 196);
 
   g.strokeStyle = "#e3ded6"; g.lineWidth = 2;
-  g.beginPath(); g.moveTo(72, 270); g.lineTo(W - 72, 270); g.stroke();
+  g.beginPath(); g.moveTo(72, 258); g.lineTo(W - 72, 258); g.stroke();
 
-  g.fillStyle = "#c08a4a"; g.font = "bold 26px " + F;
-  g.fillText("你的睡眠人格 · " + t.rare, 72, 360);
+  g.fillStyle = "#c08a4a"; g.font = "bold 25px " + F;
+  g.fillText("你的睡眠人格 · " + t.rare, 72, 346);
 
-  g.fillStyle = "#1a1a1a"; g.font = "bold 96px " + F;
-  g.fillText(t.name, 72, 480);
+  g.fillStyle = "#1a1a1a"; g.font = "bold 94px " + F;
+  g.fillText(t.name, 72, 466);
 
-  g.fillStyle = "#5c5751"; g.font = "31px " + F;
-  var y = wrapText(g, t.one, 72, 560, W - 144, 48) + 40;
+  g.fillStyle = "#5c5751"; g.font = "30px " + F;
+  var y = wrapText(g, t.one, 72, 546, W - 144, 47) + 38;
 
-  g.font = "29px " + F;
+  g.font = "28px " + F;
   t.feat.slice(0, 3).forEach(function(f){
     g.fillStyle = "#c08a4a";
-    g.beginPath(); g.arc(84, y - 10, 6, 0, Math.PI * 2); g.fill();
+    g.beginPath(); g.arc(84, y - 9, 6, 0, Math.PI * 2); g.fill();
     g.fillStyle = "#1a1a1a";
-    y = wrapText(g, f, 112, y, W - 210, 46) + 22;
+    y = wrapText(g, f, 112, y, W - 210, 45) + 20;
   });
 
   g.strokeStyle = "#e3ded6"; g.beginPath();
-  g.moveTo(72, H - 190); g.lineTo(W - 72, H - 190); g.stroke();
-  g.fillStyle = "#9c9690"; g.font = "28px " + F;
-  g.fillText("你也测测，看是不是同一型", 72, H - 130);
-  g.fillStyle = "#1a1a1a"; g.font = "bold 28px " + F;
-  g.fillText("[ 你的链接 ]", 72, H - 84);
+  g.moveTo(72, H - 186); g.lineTo(W - 72, H - 186); g.stroke();
+  g.fillStyle = "#9c9690"; g.font = "27px " + F;
+  g.fillText("你也测测，看是不是同一型", 72, H - 128);
+  g.fillStyle = "#1a1a1a"; g.font = "bold 27px " + F;
+  g.fillText("[ 你的链接 ]", 72, H - 82);
 
   return cv.toDataURL("image/png");
 }
 
-/* ---------- 分享进来 ---------- */
 (function(){
   var m = /(?:^|&)r=([a-z]+)/.exec((location.search || "").replace(/^\?/, ""));
   if (!m || !TYPES[m[1]]) return;
   var t = TYPES[m[1]];
   var bar = document.createElement("div");
   bar.style.cssText = "background:#fff;border:1.5px solid #e3ded6;border-radius:3px;" +
-    "padding:20px;margin-bottom:30px;text-align:left;width:100%";
-  bar.innerHTML = '<div style="font-size:12px;color:#9c9690;letter-spacing:.16em;margin-bottom:8px">你的朋友测出来是</div>' +
+    "padding:20px;margin-bottom:26px;text-align:left;width:100%;animation:fadeUp .5s both";
+  bar.innerHTML = '<div style="font-size:11.5px;color:#9c9690;letter-spacing:.18em;margin-bottom:8px">你的朋友测出来是</div>' +
     '<div style="font-size:28px;font-weight:900;color:#1a1a1a;margin-bottom:6px">' + t.name + '</div>' +
     '<div style="font-size:14px;color:#5c5751;line-height:1.7">' + t.one + '</div>' +
     '<div style="margin-top:14px;font-size:14px;color:#c08a4a;font-weight:700">你也测一下，看是不是同一型 ↓</div>';
@@ -461,7 +499,6 @@ function drawCard(r){
   cover.insertBefore(bar, cover.firstChild);
 })();
 
-/* ---------- ?demo=N ---------- */
 (function(){
   var m = /(?:^|&)demo=(\d+)/.exec((location.search || "").replace(/^\?/, ""));
   if (!m) return;
