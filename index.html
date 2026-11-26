@@ -262,6 +262,8 @@
 "use strict";
 
 var PAY_URL = "";
+var WX = "XoeJ_Set8";
+var MAIL = "asdfghjkl2011shiu@gmail.com";
 
 var TYPES = {
   instant: {
@@ -450,7 +452,14 @@ function calc(){
 }
 
 function showResult(){
-  var r = calc(), t = TYPES[r.main], s = TYPES[r.second];
+  var r;
+  if (window.__forceType){ 
+    var others = Object.keys(TYPES).filter(function(k){ return k !== window.__forceType; });
+    r = { main: window.__forceType, second: others[0], score: {} };
+  } else {
+    r = calc();
+  }
+  var t = TYPES[r.main], s = TYPES[r.second];
   var FULL = /[?&]full=1/.test(location.search);
 
   document.getElementById("quiz").classList.add("hidden");
@@ -474,8 +483,15 @@ function showResult(){
   } else {
     h += '<div class="lock"><b>还有 2 条特征没给你看</b>';
     h += '<p>以及：你该注意什么、你的第二型是什么</p>';
-    if (PAY_URL) h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
-    else h += '<p style="margin:0">完整版暂未开放</p>';
+    if (PAY_URL){
+      h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
+    } else if (WX){
+      h += '<button class="unlockBtn" id="copywx">加我微信 · ¥9.9</button>';
+      h += '<div style="font-size:12px;color:var(--ink-3);margin-top:12px;line-height:1.8">' +
+           '点一下复制微信号，加我时说「睡眠测试」<br>付完把结果截图发我，我把完整版发你</div>';
+    } else {
+      h += '<p style="margin:0">完整版暂未开放</p>';
+    }
     h += '</div>';
   }
 
@@ -501,6 +517,17 @@ function showResult(){
     } else prompt("复制这段发给朋友：", txt);
   });
 
+  var cw = document.getElementById("copywx");
+  if (cw){
+    cw.addEventListener("click", function(){
+      var txt = WX;
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(function(){
+          cw.textContent = "微信号已复制：" + txt;
+        }).catch(function(){ prompt("微信号：", txt); });
+      } else prompt("微信号：", txt);
+    });
+  }
   document.getElementById("save").addEventListener("click", function(){
     var a = document.createElement("a");
     a.href = drawCard(r); a.download = "我的睡眠人格.png"; a.click();
