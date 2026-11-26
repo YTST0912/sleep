@@ -603,9 +603,17 @@ function showResult(){
     } else if (WX){
       h += '<button class="unlockBtn" id="showqr">看完整结果 · ¥9.9</button>';
       h += '<div id="qrbox" style="display:none;margin-top:18px">';
-      h +=   '<a href="alipays://platformapi/startapp?saId=10000007&qrcode=https%3A%2F%2Fqr.alipay.com%2Ffkx12040imx5op1vb3s0x21" style="display:block;text-decoration:none;background:#1677FF;color:#fff;padding:16px;text-align:center;font-size:16px;font-weight:700;border-radius:2px;margin-bottom:14px">用支付宝打开 · 付款 9.9 元</a>';
-      h +=   '<div style="text-align:center;margin-bottom:12px;color:var(--ink-3);font-size:12px">打不开？用支付宝「扫一扫」扫这个码</div>';
-      h +=   '<img src="pay.png" alt="收款码" style="width:150px;height:auto;display:block;margin:0 auto;background:#fff;padding:6px;border-radius:2px" onerror="this.style.display=&quot;none&quot;">';
+      h +=   '<div style="background:#fff;padding:10px;display:inline-block;border-radius:4px">' +
+             '<img src="pay.png" alt="收款码" style="width:180px;height:auto;display:block" ' +
+             'onerror="this.parentNode.style.display=&quot;none&quot;">' +
+             '</div>';
+      h +=   '<div style="font-size:13.5px;color:var(--ink-1);margin-top:16px;line-height:2;text-align:left;' +
+             'background:rgba(255,255,255,.03);padding:14px 16px;border:1px solid var(--border)">' +
+             '<span style="color:#F5C518">①</span> 长按上面的码，保存到相册<br>' +
+             '<span style="color:#F5C518">②</span> 打开支付宝，点右上角「扫一扫」<br>' +
+             '<span style="color:#F5C518">③</span> 点「相册」，选刚才那张图<br>' +
+             '<span style="color:#F5C518">④</span> 付 9.9 元，回来这里等着' +
+             '</div>';
       h +=   '<div id="waitbox" style="display:none;margin-top:16px"></div>';
       h += '</div>';
     } else {
