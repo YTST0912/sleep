@@ -71,22 +71,21 @@
   .qtext{font-size:28px;line-height:1.52;font-weight:800;letter-spacing:-.014em;margin:0 0 36px}
   .opts{display:flex;flex-direction:column;gap:12px}
   .opt{width:100%;text-align:left;background:var(--card);color:var(--ink);
-    border:1.5px solid var(--line);border-radius:15px;padding:21px 20px;
-    font:18px/1.55 inherit;cursor:pointer;display:flex;align-items:center;gap:14px;
-    box-shadow:0 1px 3px rgba(26,26,26,.035);
-    transition:background .16s,border-color .16s,color .16s,transform .1s,box-shadow .16s;
+    border:1.5px solid var(--line);border-radius:14px;padding:17px 18px;min-height:56px;
+    font:17px/1.55 inherit;cursor:pointer;display:flex;align-items:center;gap:12px;
+    transition:background .2s,border-color .2s,transform .12s;
     animation:fadeUp .38s cubic-bezier(.2,.9,.3,1) both}
-  .opt::before{content:"";flex:none;width:20px;height:20px;border-radius:50%;
-    border:2px solid #d2cbc0;transition:border-color .16s,background .16s,box-shadow .16s}
-  .opt.sel{box-shadow:0 3px 10px rgba(26,26,26,.12)}
-  .opt.sel::before{border-color:var(--ink);background:var(--ink);
-    box-shadow:inset 0 0 0 3.5px #fff}
+  .opt::before{content:"";flex:0 0 auto;width:10px;height:10px;border-radius:50%;
+    background:#d8d2c8;transition:background .2s ease}
+  .opt:active{transform:scale(.985)}
+  .opt.sel{border-color:var(--accent);background:#fdf7ee}
+  .opt.sel::before{background:var(--accent)}
   .opt:nth-child(1){animation-delay:.04s}
   .opt:nth-child(2){animation-delay:.10s}
   .opt:nth-child(3){animation-delay:.16s}
   .opt:nth-child(4){animation-delay:.22s}
   .opt:active{transform:scale(.985)}
-  .opt.sel{background:var(--ink);color:#fff;border-color:var(--ink);animation:shake .28s ease}
+  
 
   /* ---------- 结果 ---------- */
   #result{flex:1;padding:30px 0 40px;animation:enterUp .42s cubic-bezier(.2,.9,.3,1) both}
