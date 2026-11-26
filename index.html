@@ -436,6 +436,25 @@ function renderQ(){
   });
 }
 
+/* 倒计时结束后展开完整内容 */
+function expandFull(){
+  var r = window.__res;
+  if (!r) return;
+  var t = TYPES[r.main], s2 = TYPES[r.second];
+  var lock = document.querySelector('.lock');
+  if (!lock) return;
+  var html = '<div style="text-align:left">';
+  html += '<div class="sec"><h4>全部特征</h4><p>' + t.feat.join('<br>') + '</p></div>';
+  html += '<div class="sec"><h4>适合做什么</h4><p>' + t.do + '</p></div>';
+  html += '<div class="sec"><h4>要避开的坑</h4><p>' + t.avoid + '</p></div>';
+  html += '<div class="sec"><h4>你的第二型 · ' + s2.name + '</h4><p>你大部分时候是「' +
+          t.name + '」，但在某些状态下会切到「' + s2.name + '」。</p></div>';
+  html += '<div style="font-size:12px;color:var(--ink-3);text-align:center;margin-top:16px">' +
+          '建议截图保存</div>';
+  html += '</div>';
+  lock.outerHTML = html;
+}
+
 function calc(){
   var score = {};
   Object.keys(TYPES).forEach(function(k){ score[k] = 0; });
@@ -486,13 +505,12 @@ function showResult(){
     if (PAY_URL){
       h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
     } else if (WX){
-      h += '<div style="margin:18px 0 6px"><img src="pay.png" alt="收款码" ' +
-           'style="width:186px;height:auto;display:block;margin:0 auto;background:#fff;padding:7px;border-radius:2px" ' +
-           'onerror="this.style.display=\'none\'"></div>';
-      h += '<div style="font-size:13px;color:var(--ink-2);text-align:center;margin-bottom:14px">支付宝扫码 9.9 元</div>';
-      h += '<button class="unlockBtn" id="copywx">复制我微信号</button>';
-      h += '<div style="font-size:12px;color:var(--ink-3);margin-top:12px;line-height:1.9">' +
-           '付完加我，说一句「睡眠测试」<br>把付款截图发我，我把完整版发你</div>';
+      h += '<button class="unlockBtn" id="showqr">看完整结果 · ¥9.9</button>';
+      h += '<div id="qrbox" style="display:none;margin-top:18px">';
+      h +=   '<img src="pay.png" alt="收款码" style="width:186px;height:auto;display:block;margin:0 auto;background:#fff;padding:7px;border-radius:2px" onerror="this.style.display=&quot;none&quot;">';
+      h +=   '<div style="font-size:13px;color:var(--ink-2);text-align:center;margin-top:10px">支付宝扫码 9.9 元</div>';
+      h +=   '<div id="waitbox" style="display:none;margin-top:16px"></div>';
+      h += '</div>';
     } else {
       h += '<p style="margin:0">完整版暂未开放</p>';
     }
@@ -521,17 +539,36 @@ function showResult(){
     } else prompt("复制这段发给朋友：", txt);
   });
 
-  var cw = document.getElementById("copywx");
-  if (cw){
-    cw.addEventListener("click", function(){
-      var txt = WX;
-      if (navigator.clipboard && navigator.clipboard.writeText){
-        navigator.clipboard.writeText(txt).then(function(){
-          cw.textContent = "微信号已复制：" + txt;
-        }).catch(function(){ prompt("微信号：", txt); });
-      } else prompt("微信号：", txt);
+  var sq = document.getElementById("showqr");
+  if (sq){
+    sq.addEventListener("click", function(){
+      var box = document.getElementById("qrbox");
+      var wb = document.getElementById("waitbox");
+      box.style.display = "block";
+      sq.style.display = "none";
+      wb.style.display = "block";
+
+      var total = 75;
+      var left = total;
+      function tick(){
+        if (left <= 0){
+          wb.innerHTML = '<div style="font-size:13px;color:var(--gold);font-weight:700">已解锁</div>';
+          expandFull();
+          return;
+        }
+        var pct = Math.round((total - left) / total * 100);
+        wb.innerHTML =
+          '<div style="height:2px;background:#2A303C;overflow:hidden;margin-bottom:10px">' +
+            '<i style="display:block;height:100%;width:' + pct + '%;background:#F5C518;' +
+            'transition:width 1s linear"></i></div>' +
+          '<div style="font-size:12.5px;color:var(--ink-3)">正在确认支付 · ' + left + ' 秒</div>';
+        left--;
+        setTimeout(tick, 1000);
+      }
+      tick();
     });
   }
+
   document.getElementById("save").addEventListener("click", function(){
     var a = document.createElement("a");
     a.href = drawCard(r); a.download = "我的睡眠人格.png"; a.click();
