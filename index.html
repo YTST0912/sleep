@@ -476,6 +476,10 @@ function expandFull(){
           '建议截图保存</div>';
   html += '</div>';
   lock.outerHTML = html;
+
+  // 展开后再绑定图鉴按钮（此时按钮才存在）
+  var ab = document.getElementById('atlasBtn');
+  if (ab) ab.addEventListener('click', showAtlas);
 }
 
 /* 全部 8 型图鉴 */
@@ -622,11 +626,6 @@ function showResult(){
 
     });
   }
-
-  setTimeout(function(){
-    var ab = document.getElementById('atlasBtn');
-    if (ab) ab.addEventListener('click', showAtlas);
-  }, 100);
 
   document.getElementById("save").addEventListener("click", function(){
     var a = document.createElement("a");
