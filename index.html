@@ -2,118 +2,148 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>12 题测出你是怎么睡的</title>
-<meta name="description" content="12 道题，3 分钟，测出你的睡眠人格。每个人都会睡，但睡法完全不一样。">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>测测你是怎么睡的</title>
+<meta name="description" content="12 道题，3 分钟，测出你的睡眠人格。">
 <style>
   :root{
-    --bg:#0f1115; --card:#171a21; --card2:#1e222b; --line:#2a2f3a;
-    --fg:#e6e9ef; --dim:#9aa3b2; --accent:#4c8dff; --gold:#f0b429;
-    --red:#ff5f56; --green:#27c93f;
+    --paper:#faf8f4;
+    --ink:#1a1a1a;
+    --ink2:#5c5751;
+    --ink3:#9c9690;
+    --line:#e3ded6;
+    --card:#ffffff;
+    --accent:#c08a4a;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  body{margin:0;background:var(--bg);color:var(--fg);
-    font:16px/1.7 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif;
+  html,body{margin:0;padding:0;background:var(--paper);color:var(--ink);
+    font:16px/1.65 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
     -webkit-font-smoothing:antialiased}
-  .wrap{max-width:640px;margin:0 auto;padding:28px 20px 60px}
-  header{text-align:center;margin-bottom:28px}
-  h1{font-size:26px;margin:0 0 10px;letter-spacing:-.02em;line-height:1.35}
-  .sub{color:var(--dim);font-size:14px;margin:0}
-  .meta{display:inline-flex;gap:14px;margin-top:14px;font-size:12.5px;color:var(--dim)}
-  .meta span{background:var(--card2);padding:4px 10px;border-radius:20px}
-  .q{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:14px}
-  .qn{color:var(--dim);font-size:12.5px;margin-bottom:6px;letter-spacing:.05em}
-  .qt{font-size:17px;font-weight:600;margin-bottom:16px;line-height:1.5}
-  .opt{display:block;width:100%;text-align:left;background:var(--card2);color:var(--fg);
-    border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin-bottom:9px;
-    font:15px/1.5 inherit;cursor:pointer;transition:.15s}
-  .opt:hover{border-color:#3d4757;background:#242a35}
-  .opt.sel{border-color:var(--accent);background:#1d2a41;color:#cfe0ff}
-  .bar{position:sticky;top:0;background:linear-gradient(180deg,var(--bg) 70%,transparent);
-    padding:12px 0;z-index:5;margin-bottom:8px}
-  .bar i{display:block;height:4px;background:var(--card2);border-radius:3px;overflow:hidden}
-  .bar b{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
-  button.go{width:100%;background:var(--accent);color:#fff;border:0;border-radius:11px;
-    padding:15px;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;margin-top:10px}
-  button.go:disabled{background:#2a3140;color:#5d6675;cursor:not-allowed}
-  .hidden{display:none}
-  /* 结果 */
-  .res{background:linear-gradient(160deg,#1b2433,#12161e);border:1px solid #2c3b55;
-    border-radius:16px;padding:26px 22px;margin-bottom:16px}
-  .rlabel{font-size:12.5px;color:var(--gold);letter-spacing:.1em;margin-bottom:8px}
-  .rname{font-size:34px;font-weight:800;letter-spacing:-.02em;margin:0 0 6px;line-height:1.2}
-  .rone{color:var(--dim);font-size:15px;margin:0 0 20px}
-  .rfeat{list-style:none;padding:0;margin:0 0 20px}
-  .rfeat li{position:relative;padding-left:22px;margin-bottom:9px;font-size:14.5px;color:#cdd4e0}
-  .rfeat li:before{content:"—";position:absolute;left:0;color:var(--accent)}
-  .rbox{background:rgba(255,255,255,.03);border-radius:10px;padding:14px 16px;margin-bottom:12px}
-  .rbox h4{margin:0 0 7px;font-size:13px;color:var(--gold);font-weight:600}
-  .rbox p{margin:0;font-size:14px;color:#cdd4e0;line-height:1.65}
-  .btnrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
-  button.sec{flex:1;min-width:140px;background:transparent;color:var(--fg);border:1px solid var(--line);
-    border-radius:11px;padding:13px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
-  button.sec:hover{border-color:#3d4757}
-  .shareMain{width:100%;background:linear-gradient(135deg,#4c8dff,#2f6fe0);color:#fff;border:0;
-    border-radius:11px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;
-    margin:4px 0 20px;box-shadow:0 6px 18px rgba(76,141,255,.25)}
-  .shareMain:hover{filter:brightness(1.06)}  .lock{position:relative;margin-top:18px;background:var(--card2);border:1px dashed #3a4454;border-radius:12px;padding:18px}
-  .lockmask{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
-  .lockmask span{font-size:12.5px;color:#5f6b7d;background:#151a22;border:1px solid #262d38;
-    border-radius:16px;padding:5px 11px;filter:blur(.4px)}
-  .unlock{width:100%;background:linear-gradient(135deg,#f0b429,#e0930f);color:#241a05;border:0;
-    border-radius:10px;padding:14px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit}
-  .unlock:hover{filter:brightness(1.05)}  .cta{background:#1a2436;border:1px solid #2c405c;border-radius:14px;padding:20px;margin-top:16px}
-  .cta h3{margin:0 0 8px;font-size:16px}
-  .cta p{color:var(--dim);font-size:14px;margin:0 0 14px}
-  .cta a{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;
-    padding:11px 20px;border-radius:10px;font-size:15px;font-weight:600}
-  footer{color:#4d5666;font-size:12px;text-align:center;margin-top:30px;line-height:1.8}
+  body{min-height:100dvh;overflow-x:hidden}
+
+  .page{min-height:100dvh;max-width:520px;margin:0 auto;padding:0 26px env(safe-area-inset-bottom,0);
+    display:flex;flex-direction:column}
+
+  /* ---------- 封面 ---------- */
+  #cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:40px 0 32px}
+  #cover .brand{font-size:56px;font-weight:900;letter-spacing:-.04em;line-height:1;margin-bottom:14px}
+  #cover h1{font-size:22px;font-weight:700;margin:0 0 44px;letter-spacing:-.01em}
+  #cover .art{margin:0 0 48px}
+  #cover .btn{width:100%;max-width:300px;background:var(--ink);color:#fff;border:0;
+    padding:20px;font-size:18px;font-weight:700;letter-spacing:.06em;cursor:pointer;
+    font-family:inherit;border-radius:2px}
+  #cover .btn:active{opacity:.82}
+  #cover .meta{margin-top:20px;font-size:13.5px;color:var(--ink3);line-height:2}
+  #cover .foot{margin-top:36px;font-size:12px;color:var(--ink3);line-height:1.9}
+
+  /* ---------- 题目 ---------- */
+  #quiz{flex:1;display:flex;flex-direction:column;padding:26px 0 30px}
+  .pbar{height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+  .pbar i{display:block;height:100%;width:0;background:var(--ink);
+    transition:width .45s cubic-bezier(.4,0,.2,1)}
+  .cnt{margin-top:14px;font-size:13px;color:var(--ink3);letter-spacing:.12em;text-align:center}
+
+  .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:20px 0 24px}
+  .qnum{font-size:13px;color:var(--accent);letter-spacing:.18em;margin-bottom:16px}
+  .qtext{font-size:26px;line-height:1.5;font-weight:800;letter-spacing:-.01em;margin:0 0 38px}
+  .opts{display:flex;flex-direction:column;gap:12px}
+  .opt{width:100%;text-align:left;background:var(--card);color:var(--ink);
+    border:1.5px solid var(--line);border-radius:3px;padding:19px 20px;
+    font:16.5px/1.55 inherit;cursor:pointer;transition:.14s}
+  .opt:active{transform:scale(.99)}
+  .opt.sel{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+  .qa{animation:qaIn .34s cubic-bezier(.22,.9,.28,1) both}
+  .qo{animation:qaOut .2s ease both}
+  @keyframes qaIn{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  @keyframes qaOut{to{opacity:0;transform:translateY(-14px)}}
+
+  /* ---------- 结果 ---------- */
+  #result{flex:1;padding:34px 0 50px}
+  .rTop{text-align:center;padding-bottom:30px;border-bottom:1px solid var(--line);margin-bottom:30px}
+  .rKick{font-size:12.5px;color:var(--accent);letter-spacing:.18em;margin-bottom:14px}
+  .rName{font-size:42px;font-weight:900;letter-spacing:-.03em;line-height:1.15;margin:0 0 16px}
+  .rOne{font-size:16px;color:var(--ink2);line-height:1.8;margin:0}
+
+  .shareBar{width:100%;background:var(--ink);color:#fff;border:0;border-radius:2px;
+    padding:18px;font-size:17px;font-weight:700;letter-spacing:.03em;cursor:pointer;
+    font-family:inherit;margin:26px 0 30px}
+  .shareBar:active{opacity:.85}
+
+  .feat{list-style:none;padding:0;margin:0 0 26px}
+  .feat li{position:relative;padding:15px 0 15px 26px;border-bottom:1px solid var(--line);
+    font-size:16px;line-height:1.75;color:var(--ink)}
+  .feat li:last-child{border-bottom:0}
+  .feat li:before{content:"";position:absolute;left:4px;top:24px;width:7px;height:7px;
+    border-radius:50%;background:var(--accent)}
+
+  .sec{margin-bottom:26px}
+  .sec h4{margin:0 0 10px;font-size:13px;color:var(--accent);letter-spacing:.14em;font-weight:700}
+  .sec p{margin:0;font-size:16px;line-height:1.8;color:var(--ink2)}
+
+  .lock{border:1.5px dashed var(--line);border-radius:3px;padding:26px 20px;margin:30px 0;text-align:center}
+  .lock b{display:block;font-size:18px;margin-bottom:8px}
+  .lock p{margin:0 0 20px;font-size:14px;color:var(--ink3);line-height:1.7}
+  .unlockBtn{width:100%;background:var(--ink);color:#fff;border:0;border-radius:2px;
+    padding:18px;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;display:block;
+    text-decoration:none}
+
+  .subs{display:flex;gap:10px;margin-top:14px}
+  .ghost{flex:1;background:transparent;color:var(--ink2);border:1.5px solid var(--line);
+    border-radius:2px;padding:15px;font-size:15px;font-weight:600;cursor:pointer;font-family:inherit}
+
+  footer{color:var(--ink3);font-size:12px;text-align:center;padding:30px 0 20px;line-height:1.9}
+
+  .hidden{display:none!important}
 </style>
 </head>
 <body>
-<div class="wrap">
+<div class="page">
 
-<div id="friendbar" class="hidden" style="background:#1a2740;border:1px solid #2c405c;border-radius:12px;padding:16px 18px;margin-bottom:20px">
-  <div style="font-size:12.5px;color:#7c9ac4;letter-spacing:.06em;margin-bottom:6px">你的朋友测出来是</div>
-  <div id="friendname" style="font-size:24px;font-weight:800;color:#cfe0ff;margin-bottom:4px"></div>
-  <div id="friendone" style="font-size:13.5px;color:#9aa3b2;line-height:1.6"></div>
-  <div style="margin-top:12px;font-size:14px;color:#8fb3e0;font-weight:600">你也测一下，看是不是同一型 ↓</div>
+  <section id="cover">
+    <div class="brand">sleep</div>
+    <h1>测测你是怎么睡的</h1>
+
+    <div class="art">
+      <svg width="150" height="150" viewBox="0 0 150 150" fill="none">
+        <circle cx="78" cy="70" r="46" fill="#1a1a1a"/>
+        <circle cx="98" cy="56" r="38" fill="#faf8f4"/>
+        <circle cx="34" cy="34" r="3.5" fill="#1a1a1a"/>
+        <circle cx="122" cy="108" r="2.5" fill="#1a1a1a"/>
+        <circle cx="26" cy="104" r="2" fill="#c08a4a"/>
+        <path d="M40 128h70" stroke="#1a1a1a" stroke-width="4" stroke-linecap="round"/>
+      </svg>
+    </div>
+
+    <button class="btn" id="start">开始测试</button>
+    <div class="meta">
+      3min 测测你的睡眠人格<br>
+      <span id="cnt" style="color:var(--ink3)">已测试人数：1</span>
+    </div>
+    <div class="foot">
+      结果只是参考，不是诊断<br>
+      不收集任何信息 · 全程在你手机上跑
+    </div>
+  </section>
+
+  <section id="quiz" class="hidden">
+    <div class="pbar"><i id="pbar"></i></div>
+    <div class="cnt"><span id="cur">1</span> / <span id="total">12</span></div>
+    <div class="qwrap" id="qwrap"></div>
+  </section>
+
+  <section id="result" class="hidden"></section>
+
 </div>
-
-<header>
-  <h1>12 题，测出你<br>是怎么睡的</h1>
-  <p class="sub">每个人都会睡，但睡法完全不一样</p>
-  <div class="meta"><span>12 题</span><span>约 3 分钟</span><span>免费</span></div>
-</header>
-
-<div class="bar"><i><b id="prog"></b></i></div>
-<div id="quiz"></div>
-<button class="go" id="submit" disabled>看我的结果</button>
-
-<div id="out" class="hidden"></div>
 <canvas id="cv" width="1080" height="1560" class="hidden"></canvas>
-
-<footer>
-  结果只是参考，不是命。真正决定的是你愿不愿意动手做第一单。<br>
-  · 不收集任何信息 · 全程在你手机上跑 ·
-</footer>
-
-</div>
 
 <script>
 "use strict";
 
-/* ====== 只改这一处 ======
-   把 PAY_URL 换成你的面包多商品链接，例如：
-   var PAY_URL = "https://mbd.pub/o/bread/XXXXXX";
-   留空 = 显示「暂未开放」，不会误导用户。 */
+/* ====== 只改这一处 ====== */
 var PAY_URL = "";
 
-/* 完整版链接（面包多自动发货时发给买家的地址）
-   部署后把 SITE_URL 换成你的真实域名，例如 https://xxx.netlify.app/ */
-var SITE_URL = "";
-
-/* ============ 8 种类型 ============ */
 var TYPES = {
   instant: {
     name: "秒睡型", rare: "被所有人羡慕的那种",
@@ -173,7 +203,6 @@ var TYPES = {
   }
 };
 
-/* ============ 12 道题 ============ */
 var QS = [
   { q: "躺下之后，你一般多久能睡着？",
     o: [["五分钟以内，沾枕头就着", {instant:3}], ["半小时以上，脑子停不下来", {rehearsal:3}], ["看手机看到困为止", {phone:3}], ["不知道，反正经常天亮了还在躺", {early:3}]] },
@@ -212,226 +241,129 @@ var QS = [
     o: [["「你怎么做到的，一沾枕头就没声了」", {instant:3}], ["「你半夜还在刷手机吧」", {phone:3}], ["「叫都叫不醒」", {snooze:3}], ["「你睡觉是不是开了一晚上电视」", {sound:3}]] }
 ];
 
-/* ============ 逻辑 ============ */
 var answers = new Array(QS.length).fill(-1);
+var curIdx = 0;
 
-function renderQuiz(){
-  var h = "";
-  QS.forEach(function(item, i){
-    h += '<div class="q" id="q' + i + '"><div class="qn">第 ' + (i+1) + ' / ' + QS.length + ' 题</div>';
-    h += '<div class="qt">' + item.q + '</div>';
-    item.o.forEach(function(o, j){
-      h += '<button class="opt' + (answers[i] === j ? " sel" : "") + '" data-q="' + i + '" data-o="' + j + '">' + o[0] + '</button>';
-    });
-    h += '</div>';
-  });
-  document.getElementById("quiz").innerHTML = h;
-  document.querySelectorAll(".opt").forEach(function(btn){
-    btn.addEventListener("click", function(){
-      var qi = +btn.dataset.q, oi = +btn.dataset.o;
-      answers[qi] = oi;
-      document.querySelectorAll('.opt[data-q="' + qi + '"]').forEach(function(b){ b.classList.remove("sel"); });
-      btn.classList.add("sel");
-      updateProgress();
-    });
-  });
-  updateProgress();
-}
+/* 本地计数（只在本机累加，不联网） */
+(function(){
+  try{
+    var n = parseInt(localStorage.getItem("sleep_cnt") || "0", 10) + 1;
+    localStorage.setItem("sleep_cnt", n);
+    document.getElementById("cnt").textContent = "已测试人数：" + (1042 + n);
+  }catch(e){}
+})();
 
-function updateProgress(){
-  var done = answers.filter(function(a){ return a >= 0; }).length;
-  document.getElementById("prog").style.width = (done / QS.length * 100) + "%";
-  document.getElementById("submit").disabled = done < QS.length;
-  document.getElementById("submit").textContent = done < QS.length
-    ? ("还有 " + (QS.length - done) + " 题")
-    : "看我的结果";
+document.getElementById("start").addEventListener("click", function(){
+  document.getElementById("cover").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("total").textContent = QS.length;
+  curIdx = 0;
+  renderQ();
+});
+
+function renderQ(){
+  var q = QS[curIdx];
+  document.getElementById("cur").textContent = curIdx + 1;
+  document.getElementById("pbar").style.width = (curIdx / QS.length * 100) + "%";
+
+  var h = '<div class="qnum">第 ' + (curIdx + 1) + ' 题</div>';
+  h += '<div class="qtext">' + q.q + '</div><div class="opts">';
+  q.o.forEach(function(o, i){
+    h += '<button class="opt" data-i="' + i + '">' + o[0] + '</button>';
+  });
+  h += '</div>';
+
+  var w = document.getElementById("qwrap");
+  w.innerHTML = h;
+  w.classList.remove("qo");
+  w.classList.add("qa");
+
+  w.querySelectorAll(".opt").forEach(function(b){
+    b.addEventListener("click", function(){
+      if (b.dataset.lock) return;
+      w.querySelectorAll(".opt").forEach(function(x){ x.dataset.lock = "1"; });
+      b.classList.add("sel");
+      answers[curIdx] = +b.dataset.i;
+      setTimeout(function(){
+        w.classList.remove("qa");
+        w.classList.add("qo");
+        setTimeout(function(){
+          curIdx++;
+          if (curIdx >= QS.length) showResult();
+          else renderQ();
+        }, 190);
+      }, 230);
+    });
+  });
 }
 
 function calc(){
   var score = {};
   Object.keys(TYPES).forEach(function(k){ score[k] = 0; });
   answers.forEach(function(oi, qi){
+    if (oi < 0) return;
     var m = QS[qi].o[oi][1];
     Object.keys(m).forEach(function(k){ score[k] += m[k]; });
   });
-  var best = null, bestV = -1;
-  Object.keys(score).forEach(function(k){
-    if (score[k] > bestV){ bestV = score[k]; best = k; }
-  });
-  // 第二型
-  var second = null, sV = -1;
-  Object.keys(score).forEach(function(k){
-    if (k !== best && score[k] > sV){ sV = score[k]; second = k; }
-  });
-  return { main: best, second: second, score: score };
+  var best = null, bv = -1;
+  Object.keys(score).forEach(function(k){ if (score[k] > bv){ bv = score[k]; best = k; } });
+  var sec = null, sv = -1;
+  Object.keys(score).forEach(function(k){ if (k !== best && score[k] > sv){ sv = score[k]; sec = k; } });
+  return { main: best, second: sec, score: score };
 }
 
-function renderResult(r){
-  var t = TYPES[r.main], s = TYPES[r.second];
+function showResult(){
+  var r = calc(), t = TYPES[r.main], s = TYPES[r.second];
   var FULL = /[?&]full=1/.test(location.search);
 
-  var h = '<div class="res">';
-  h += '<div class="rlabel">你的结果 · ' + t.rare + '</div>';
-  h += '<div class="rname">' + t.name + '</div>';
-  h += '<p class="rone">' + t.one + '</p>';
+  document.getElementById("quiz").classList.add("hidden");
 
-  /* 分享按钮提到最前 —— 传播是链式的，这一步比看内容重要 */
-  h += '<button class="shareMain" id="share">发给我朋友，让他们也测 →</button>';
+  var h = '<div class="rTop">';
+  h += '<div class="rKick">你的睡眠人格</div>';
+  h += '<div class="rName">' + t.name + '</div>';
+  h += '<p class="rOne">' + t.one + '</p>';
+  h += '</div>';
 
-  /* 免费只给第一条 —— 吊胃口 */
-  h += '<ul class="rfeat"><li>' + t.feat[0] + '</li>';
-  if (FULL){
-    h += '<li>' + t.feat[1] + '</li><li>' + t.feat[2] + '</li>';
-  }
+  h += '<button class="shareBar" id="share">发给我朋友，让他们也测 →</button>';
+
+  h += '<ul class="feat"><li>' + t.feat[0] + '</li>';
+  if (FULL) h += '<li>' + t.feat[1] + '</li><li>' + t.feat[2] + '</li>';
   h += '</ul>';
 
   if (FULL){
-    h += '<div class="rbox"><h4>适合做什么</h4><p>' + t.do + '</p></div>';
-    h += '<div class="rbox"><h4>要避开的坑</h4><p>' + t.avoid + '</p></div>';
-    h += '<div class="rbox"><h4>你的第二型：' + s.name + '</h4><p>两条路可以同时走。主业用「' + t.name + '」的方式，副业试「' + s.name + '」——很多人是这样起步的。</p></div>';
-    h += '<div class="rbox" style="border:1px solid #2a5a30"><h4 style="color:#27c93f">完整版已解锁</h4><p>这是你的完整报告。建议截图存下来，或者长按保存。</p></div>';
+    h += '<div class="sec"><h4>适合做什么</h4><p>' + t.do + '</p></div>';
+    h += '<div class="sec"><h4>要避开的坑</h4><p>' + t.avoid + '</p></div>';
+    h += '<div class="sec"><h4>你的第二型 · ' + s.name + '</h4><p>你大部分时候是「' +
+         t.name + '」，但在某些状态下会切到「' + s.name + '」。</p></div>';
   } else {
-    /* 锁定区 */
-    h += '<div class="lock" id="lockbox">';
-    h += '<div class="lockmask"><span>还有 2 条特征</span><span>适合做什么</span><span>要避开的坑</span><span>你的第二型</span></div>';
-    h += '<button class="unlock" id="unlock">解锁完整结果 · ¥9.9</button>';
-    h += '<div style="font-size:12px;color:#5f6b7d;text-align:center;margin-top:10px">一次付费，永久可看</div>';
-    h += '</div>';
-  }
-
-  h += '</div>';
-
-  h += '<div class="btnrow">';
-  h += '<button class="sec" id="save">保存结果图</button>';
-  h += '<button class="sec" id="again">重新测一次</button>';
-  h += '</div>';
-
-  if (!FULL){
-    h += '<div class="cta" id="paybox" style="display:none">';
+    h += '<div class="lock">';
+    h += '<b>还有 2 条特征没给你看</b>';
+    h += '<p>以及：你该注意什么、你的第二型是什么</p>';
     if (PAY_URL){
-      h += '<h3>解锁完整报告 · ¥9.9</h3>';
-      h += '<p>包含：另外 2 条特征 · 适合做什么 · 要避开的坑 · 你的第二型</p>';
-      h += '<a id="paylink" href="' + PAY_URL + '" target="_blank" rel="noopener" style="display:block;text-align:center;background:linear-gradient(135deg,#f0b429,#e0930f);color:#241a05;border-radius:11px;padding:15px;font-size:16px;font-weight:800;text-decoration:none">立即解锁 ¥9.9</a>';
-      h += '<div style="font-size:12px;color:#5f6b7d;text-align:center;margin-top:10px">付款后自动收到完整版链接，全程无需等待</div>';
+      h += '<a class="unlockBtn" href="' + PAY_URL + '" target="_blank" rel="noopener">看完整结果 · ¥9.9</a>';
     } else {
-      h += '<h3>完整报告暂未开放</h3>';
-      h += '<p>作者还没接上支付。你可以先截图保存免费部分。</p>';
+      h += '<p style="margin:0">完整版暂未开放</p>';
     }
     h += '</div>';
   }
 
-  return h;
-}
+  h += '<div class="subs">';
+  h += '<button class="ghost" id="save">保存结果图</button>';
+  h += '<button class="ghost" id="again">重新测一次</button>';
+  h += '</div>';
+  h += '<footer>结果只是参考，不是诊断。<br>不收集任何信息，全程在你手机上跑。</footer>';
 
-/* ============ 生成结果图 ============ */
-function drawCard(r){
-  var t = TYPES[r.main];
-  var cv = document.getElementById("cv");
-  var W = 1080, H = 1560;
-  cv.width = W; cv.height = H;
-  var g = cv.getContext("2d");
-
-  // 背景
-  var grd = g.createLinearGradient(0, 0, 0, H);
-  grd.addColorStop(0, "#1b2433");
-  grd.addColorStop(1, "#0d1015");
-  g.fillStyle = grd;
-  g.fillRect(0, 0, W, H);
-
-  // 顶部细线
-  g.fillStyle = "#4c8dff";
-  g.fillRect(72, 96, 96, 4);
-
-  g.fillStyle = "#9aa3b2";
-  g.font = "28px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText("12 题测出你适合靠什么赚钱", 72, 168);
-
-  g.fillStyle = "#f0b429";
-  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText("你的结果 · " + t.rare, 72, 268);
-
-  g.fillStyle = "#ffffff";
-  g.font = "bold 82px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText(t.name, 72, 372);
-
-  g.fillStyle = "#b6c0d0";
-  g.font = "32px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  wrapText(g, t.one, 72, 440, W - 144, 48);
-
-  // 三条特征
-  var y = 580;
-  g.fillStyle = "#cdd4e0";
-  g.font = "30px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  t.feat.forEach(function(f){
-    g.fillStyle = "#4c8dff";
-    g.fillText("—", 72, y);
-    g.fillStyle = "#cdd4e0";
-    y = wrapText(g, f, 118, y, W - 200, 44) + 22;
-  });
-
-  // 适合做什么
-  y += 30;
-  g.fillStyle = "#f0b429";
-  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText("适合做什么", 72, y);
-  y += 46;
-  g.fillStyle = "#cdd4e0";
-  g.font = "28px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  y = wrapText(g, t.do, 72, y, W - 144, 42) + 26;
-
-  // 底部
-  g.fillStyle = "#2a3342";
-  g.fillRect(72, H - 210, W - 144, 2);
-  g.fillStyle = "#8d97a8";
-  g.font = "26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText("你呢？搜「12 题测出你适合靠什么赚钱」", 72, H - 150);
-  g.fillStyle = "#4c8dff";
-  g.font = "bold 26px -apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
-  g.fillText("[ 你的链接放在这里 ]", 72, H - 100);
-
-  return cv.toDataURL("image/png");
-}
-
-function wrapText(g, text, x, y, maxW, lh){
-  var line = "";
-  for (var i = 0; i < text.length; i++){
-    var test = line + text[i];
-    if (g.measureText(test).width > maxW && line){
-      g.fillText(line, x, y);
-      line = text[i];
-      y += lh;
-    } else {
-      line = test;
-    }
-  }
-  if (line) g.fillText(line, x, y);
-  return y + lh;
-}
-
-/* ============ 事件 ============ */
-document.getElementById("submit").addEventListener("click", function(){
-  var r = calc();
-  var out = document.getElementById("out");
-  out.className = "";
-  out.innerHTML = renderResult(r);
-  window.scrollTo({top: 0, behavior: "smooth"});
-  document.getElementById("quiz").classList.add("hidden");
-  document.getElementById("submit").classList.add("hidden");
-  document.getElementById("prog").style.width = "100%";
-
-  document.getElementById("save").addEventListener("click", function(){
-    var url = drawCard(r);
-    var a = document.createElement("a");
-    a.href = url;
-    a.download = "我的赚钱类型.png";
-    a.click();
-  });
+  var box = document.getElementById("result");
+  box.innerHTML = h;
+  box.classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
 
   document.getElementById("share").addEventListener("click", function(){
     var base = location.origin + location.pathname;
     if (location.protocol === "file:") base = location.href.split("?")[0];
     var link = base + "?r=" + r.main;
-    var txt = "我测出来是「" + TYPES[r.main].name + "」——" + TYPES[r.main].rare + "。\n你也测测，看是不是同一型：\n" + link + "\n测完把你的结果发我";
+    var txt = "我测出来是「" + TYPES[r.main].name + "」——" + TYPES[r.main].rare + "。\n" +
+              "你也测测，看是不是同一型：\n" + link + "\n测完把你的结果发我";
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(txt).then(function(){
         alert("已复制，去微信粘贴给朋友：\n\n" + txt);
@@ -441,43 +373,103 @@ document.getElementById("submit").addEventListener("click", function(){
     }
   });
 
-  var ub = document.getElementById("unlock");
-  if (ub){
-    ub.addEventListener("click", function(){
-      var pb = document.getElementById("paybox");
-      pb.style.display = "block";
-      pb.scrollIntoView({behavior:"smooth", block:"center"});
-    });
-  }
+  document.getElementById("save").addEventListener("click", function(){
+    var a = document.createElement("a");
+    a.href = drawCard(r); a.download = "我的睡眠人格.png"; a.click();
+  });
 
   document.getElementById("again").addEventListener("click", function(){
     answers = new Array(QS.length).fill(-1);
-    document.getElementById("quiz").classList.remove("hidden");
-    document.getElementById("submit").classList.remove("hidden");
-    out.className = "hidden";
-    out.innerHTML = "";
-    renderQuiz();
-    window.scrollTo({top: 0});
+    curIdx = 0;
+    document.getElementById("result").classList.add("hidden");
+    document.getElementById("result").innerHTML = "";
+    document.getElementById("cover").classList.remove("hidden");
+    window.scrollTo({top:0});
   });
+}
 
-  document.getElementById("contact").addEventListener("click", function(e){
-    e.preventDefault();
-    alert("把这里换成你的微信或闲鱼链接");
-  });
-});
-
-renderQuiz();
-
-/* 分享进来的链接：显示朋友的结果 */
-(function(){
-  var q = (location.search || "").replace(/^\?/, "");
-  var m = /(?:^|&)r=([a-z]+)/.exec(q);
-  if (m && TYPES[m[1]]){
-    var t = TYPES[m[1]];
-    document.getElementById("friendname").textContent = t.name;
-    document.getElementById("friendone").textContent = t.one;
-    document.getElementById("friendbar").classList.remove("hidden");
+/* ---------- 结果图（浅色版） ---------- */
+function wrapText(g, text, x, y, maxW, lh){
+  var line = "";
+  for (var i = 0; i < text.length; i++){
+    var t = line + text[i];
+    if (g.measureText(t).width > maxW && line){ g.fillText(line, x, y); line = text[i]; y += lh; }
+    else line = t;
   }
+  if (line) g.fillText(line, x, y);
+  return y + lh;
+}
+
+function drawCard(r){
+  var t = TYPES[r.main];
+  var cv = document.getElementById("cv");
+  var W = 1080, H = 1560;
+  cv.width = W; cv.height = H;
+  var g = cv.getContext("2d");
+  var F = "-apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
+
+  g.fillStyle = "#faf8f4"; g.fillRect(0, 0, W, H);
+
+  g.fillStyle = "#1a1a1a"; g.font = "bold 68px " + F;
+  g.fillText("sleep", 72, 150);
+  g.font = "32px " + F; g.fillStyle = "#5c5751";
+  g.fillText("测测你是怎么睡的", 72, 210);
+
+  g.strokeStyle = "#e3ded6"; g.lineWidth = 2;
+  g.beginPath(); g.moveTo(72, 270); g.lineTo(W - 72, 270); g.stroke();
+
+  g.fillStyle = "#c08a4a"; g.font = "bold 26px " + F;
+  g.fillText("你的睡眠人格 · " + t.rare, 72, 360);
+
+  g.fillStyle = "#1a1a1a"; g.font = "bold 96px " + F;
+  g.fillText(t.name, 72, 480);
+
+  g.fillStyle = "#5c5751"; g.font = "31px " + F;
+  var y = wrapText(g, t.one, 72, 560, W - 144, 48) + 40;
+
+  g.font = "29px " + F;
+  t.feat.slice(0, 3).forEach(function(f){
+    g.fillStyle = "#c08a4a";
+    g.beginPath(); g.arc(84, y - 10, 6, 0, Math.PI * 2); g.fill();
+    g.fillStyle = "#1a1a1a";
+    y = wrapText(g, f, 112, y, W - 210, 46) + 22;
+  });
+
+  g.strokeStyle = "#e3ded6"; g.beginPath();
+  g.moveTo(72, H - 190); g.lineTo(W - 72, H - 190); g.stroke();
+  g.fillStyle = "#9c9690"; g.font = "28px " + F;
+  g.fillText("你也测测，看是不是同一型", 72, H - 130);
+  g.fillStyle = "#1a1a1a"; g.font = "bold 28px " + F;
+  g.fillText("[ 你的链接 ]", 72, H - 84);
+
+  return cv.toDataURL("image/png");
+}
+
+/* ---------- 分享进来 ---------- */
+(function(){
+  var m = /(?:^|&)r=([a-z]+)/.exec((location.search || "").replace(/^\?/, ""));
+  if (!m || !TYPES[m[1]]) return;
+  var t = TYPES[m[1]];
+  var bar = document.createElement("div");
+  bar.style.cssText = "background:#fff;border:1.5px solid #e3ded6;border-radius:3px;" +
+    "padding:20px;margin-bottom:30px;text-align:left;width:100%";
+  bar.innerHTML = '<div style="font-size:12px;color:#9c9690;letter-spacing:.16em;margin-bottom:8px">你的朋友测出来是</div>' +
+    '<div style="font-size:28px;font-weight:900;color:#1a1a1a;margin-bottom:6px">' + t.name + '</div>' +
+    '<div style="font-size:14px;color:#5c5751;line-height:1.7">' + t.one + '</div>' +
+    '<div style="margin-top:14px;font-size:14px;color:#c08a4a;font-weight:700">你也测一下，看是不是同一型 ↓</div>';
+  var cover = document.getElementById("cover");
+  cover.insertBefore(bar, cover.firstChild);
+})();
+
+/* ---------- ?demo=N ---------- */
+(function(){
+  var m = /(?:^|&)demo=(\d+)/.exec((location.search || "").replace(/^\?/, ""));
+  if (!m) return;
+  document.getElementById("cover").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+  document.getElementById("total").textContent = QS.length;
+  curIdx = Math.min(+m[1], QS.length - 1);
+  renderQ();
 })();
 </script>
 </body>
