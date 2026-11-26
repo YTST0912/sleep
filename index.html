@@ -232,8 +232,7 @@
         <circle cx="66" cy="6" r="1.5" fill="#FFF" style="animation:twinkle 3s 1.1s infinite"/>
         <circle cx="118" cy="8" r="1.4" fill="#FFF" style="animation:twinkle 2.8s 1.5s infinite"/>
         <g style="transform-origin:88px 104px;animation:floatMoon 5.5s ease-in-out infinite">
-          <circle cx="88" cy="106" r="56" fill="#F5C518"/>
-          <circle cx="113" cy="86" r="45" fill="#0B0D12"/>
+          <path fill="#F5C518" d="M 137.28,131.93 A 56,56 0 1,1 85.69,49.38 A 51,51 0 1,0 137.28,131.93 Z"/>
         </g>
       </svg>
     </div>
@@ -388,18 +387,34 @@ document.getElementById("start").addEventListener("click", function(){
 function moonSVG(size){
   return '<div class="moonbar">' +
     '<svg width="' + size + '" height="' + size + '" viewBox="0 0 72 72" fill="none">' +
-      '<defs><mask id="phaseMask">' +
-        '<rect width="72" height="72" fill="white"/>' +
-        '<circle id="phaseCut" cx="48" cy="28" r="18" fill="black" ' +
-        'style="transition:cx 1.1s cubic-bezier(.4,0,.2,1),cy 1.1s cubic-bezier(.4,0,.2,1)"/>' +
-      '</mask></defs>' +
       '<circle cx="26" cy="4" r="1.4" fill="#FFF" style="animation:twinkle 2.6s infinite"/>' +
       '<circle cx="48" cy="2" r="1.1" fill="#F5C518" style="animation:twinkle 3.4s .6s infinite"/>' +
       '<circle cx="60" cy="6" r="1.2" fill="#FFF" style="animation:twinkle 2.2s .4s infinite"/>' +
-      '<g style="transform-origin:36px 40px;animation:floatMoon 5s ease-in-out infinite">' +
-        '<circle cx="36" cy="41" r="24" fill="#F5C518" mask="url(#phaseMask)"/>' +
+      '<g style="transform-origin:36px 38px;animation:floatMoon 5s ease-in-out infinite">' +
+        '<path id="moonPath" fill="#F5C518" d="M 57.12,49.40 A 24,24 0 1,1 35.01,14.02 A 22,22 0 1,0 57.12,49.40 Z"/>' +
       '</g>' +
     '</svg></div>';
+}
+
+/* 按进度画月牙：t=0 细月牙 → t=1 满月，全程一条 path，没有遮挡圆 */
+function moonD(t){
+  var R = 24, r = 22, x1 = 36, y1 = 38;
+  var x2 = 52 + 16 * t, y2 = 28 - 30 * t;
+  var d = Math.sqrt((x2-x1)*(x2-x1) + (y2-y1)*(y2-y1));
+  if (d >= R + r){                       /* 内圆已移出 → 满月 */
+    return 'M ' + (x1-R) + ',' + y1 + ' a ' + R + ',' + R + ' 0 1,0 ' + (2*R) + ',0 a ' + R + ',' + R + ' 0 1,0 ' + (-2*R) + ',0 Z';
+  }
+  if (d <= Math.abs(R - r)){ return ''; }
+  var a = (R*R - r*r + d*d) / (2*d);
+  var hh = Math.sqrt(Math.max(0, R*R - a*a));
+  var ux = (x2-x1)/d, uy = (y2-y1)/d;
+  var px = x1 + a*ux, py = y1 + a*uy;
+  var vx = -uy, vy = ux;
+  var P1x = px + hh*vx, P1y = py + hh*vy;
+  var P2x = px - hh*vx, P2y = py - hh*vy;
+  return 'M ' + P1x.toFixed(2) + ',' + P1y.toFixed(2) +
+         ' A ' + R + ',' + R + ' 0 1,1 ' + P2x.toFixed(2) + ',' + P2y.toFixed(2) +
+         ' A ' + r + ',' + r + ' 0 1,0 ' + P1x.toFixed(2) + ',' + P1y.toFixed(2) + ' Z';
 }
 
 function renderQ(){
@@ -420,11 +435,10 @@ function renderQ(){
   void w.offsetWidth;
   w.classList.add("enter");
 
-  var ph = document.getElementById("phaseCut");
-  if (ph){
+  var mp = document.getElementById("moonPath");
+  if (mp){
     var t = QS.length > 1 ? curIdx / (QS.length - 1) : 1;
-    ph.setAttribute("cx", (48 + 22 * t).toFixed(1));
-    ph.setAttribute("cy", (28 - 18 * t).toFixed(1));
+    mp.setAttribute("d", moonD(t));
   }
 
   w.querySelectorAll(".opt").forEach(function(b){
