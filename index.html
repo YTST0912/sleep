@@ -469,7 +469,7 @@ function expandFull(){
   html += '<div class="sec"><h4>你的第二型 · ' + s2.name + '</h4><p>你大部分时候是「' +
           t.name + '」，但在某些状态下会切到「' + s2.name + '」——' + s2.one + '</p></div>';
   html += '<div style="text-align:center;margin-top:26px">' +
-          '<button class="ghost" id="atlasBtn" style="width:100%;padding:14px;' +
+          '<button class="ghost" onclick="showAtlas()" style="width:100%;padding:14px;' +
           'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
           'font-size:14px;cursor:pointer;font-family:inherit">看看其他 7 型</button></div>';
   html += '<div style="font-size:12px;color:var(--ink-3);text-align:center;margin-top:14px">' +
@@ -477,12 +477,10 @@ function expandFull(){
   html += '</div>';
   lock.outerHTML = html;
 
-  // 展开后再绑定图鉴按钮（此时按钮才存在）
-  var ab = document.getElementById('atlasBtn');
-  if (ab) ab.addEventListener('click', showAtlas);
 }
 
 /* 全部 8 型图鉴 */
+window.showAtlas = showAtlas;
 function showAtlas(){
   var box = document.getElementById('result');
   var h = '<div style="padding:10px 0 30px">';
@@ -504,15 +502,12 @@ function showAtlas(){
     h += '</div>';
   });
   h += '<div style="text-align:center;margin-top:28px">';
-  h += '<button class="ghost" id="backRes" style="width:100%;padding:14px;' +
+  h += '<button class="ghost" onclick="location.reload()" style="width:100%;padding:14px;' +
        'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
        'font-size:14px;cursor:pointer;font-family:inherit">返回我的结果</button>';
   h += '</div></div>';
   box.innerHTML = h;
   window.scrollTo({top:0});
-  document.getElementById('backRes').addEventListener('click', function(){
-    location.reload();
-  });
 }
 
 function calc(){
@@ -591,8 +586,9 @@ function showResult(){
     var base = location.origin + location.pathname;
     if (location.protocol === "file:") base = location.href.split("?")[0];
     var link = base + "?r=" + r.main;
-    var txt = "我测出来是「" + TYPES[r.main].name + "」——" + TYPES[r.main].rare + "。\n" +
-              "你也测测，看是不是同一型：\n" + link + "\n测完把你的结果发我";
+    var txt = '我测出来是「' + TYPES[r.main].name + '」--' + TYPES[r.main].one + '\n\n' +
+              '原来这不叫失眠，叫舍不得。\n' +
+              '你也测测，看你是哪种：\n' + link;
     if (navigator.clipboard && navigator.clipboard.writeText){
       navigator.clipboard.writeText(txt).then(function(){
         alert("已复制，去微信粘贴给朋友：\n\n" + txt);
