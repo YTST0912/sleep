@@ -663,12 +663,23 @@ function showResult(){
           'animation:spin 0.9s linear infinite"></div>' +
         '<div style="font-size:13px;color:var(--ink-2);line-height:1.7">正在确认支付</div>' +
         '<div style="font-size:11.5px;color:var(--ink-3);margin-top:3px">支付可能有延迟，请稍候</div>';
+      /* 按真实经过的时间判断：切出去付款也算数，回来够 20 秒就立刻解锁 */
+      var startTs = Date.now();
+      var unlocked = false;
+      function checkPaid(){
+        if (unlocked) return;
+        if ((Date.now() - startTs) / 1000 >= total){
+          unlocked = true;
+          clearInterval(timer);
+          wb.innerHTML = '<div style="font-size:14px;color:#F5C518;font-weight:700">已解锁</div>';
+          expandFull();
+        }
+      }
+      var timer = setInterval(checkPaid, 500);
+      document.addEventListener('visibilitychange', function(){
+        if (!document.hidden) checkPaid();
+      });
 
-      /* 15 秒后静默解锁，不显示秒数 */
-      setTimeout(function(){
-        wb.innerHTML = '<div style="font-size:14px;color:#F5C518;font-weight:700">已解锁</div>';
-        expandFull();
-      }, total * 1000);
 
     });
   }
