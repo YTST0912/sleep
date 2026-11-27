@@ -7,19 +7,42 @@
 <meta name="description" content="12 个问题，关于夜里的你。">
 <style>
   :root{
-    --page:#0B0D12;
-    --bg:#15181F;
-    --panel-2:#1B1F28;
-    --border:#2A303C;
-    --ink-1:#EDEAE2;
-    --ink-2:#9BA1AD;
-    --ink-3:#6B7280;
-    --gold:#F5C518;
-    --gold-soft:rgba(245,197,24,.09);
-    --on-gold:#14171E;
+    /* 中性色阶 */
+    --bg:#0F1115;
+    --surf-1:#181B21;
+    --surf-2:#20242B;
+    --surf-3:#2A2F38;
+    --line:#343A44;
+    --txt-1:#EDEDE8;
+    --txt-2:#8A8F98;
+    --txt-3:#5E636C;
+    /* 唯一强调色 */
+    --accent:#F5C518;
+    --on-accent:#0F1115;
+    --accent-soft:rgba(245,197,24,.08);
+    /* 旧名别名（兼容残留引用） */
+    --page:var(--bg);
+    --paper:var(--bg);
+    --card:var(--surf-2);
+    --card2:var(--surf-2);
+    --panel-2:var(--surf-2);
+    --border:var(--line);
+    --ink:var(--txt-1);
+    --ink-1:var(--txt-1);
+    --ink-2:var(--txt-2);
+    --ink-3:var(--txt-3);
+    --fg:var(--txt-1);
+    --dim:var(--txt-2);
+    --gold:var(--accent);
+    --gold-soft:var(--accent-soft);
+    --on-gold:var(--on-accent);
+    /* 圆角 */
+    --r-lg:16px;
+    --r-md:10px;
+    --r-sm:6px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-  html,body{margin:0;padding:0;background:var(--page);color:var(--ink-1);
+  html,body{margin:0;padding:0;background:var(--page);color:var(--txt-1);
     font:16px/1.6 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;
     -webkit-font-smoothing:antialiased}
   body{min-height:100dvh;overflow-x:hidden;position:relative}
@@ -105,8 +128,7 @@
 
   /* ============ 动画 ============ */
   @keyframes floatMoon{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-7px) rotate(-2deg)}}
-  @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}
-  @keyframes glow{0%,100%{filter:drop-shadow(0 0 14px rgba(245,197,24,.35))}50%{filter:drop-shadow(0 0 26px rgba(245,197,24,.6))}}
+  @keyframes twinkle{0%,100%{opacity:.2}50%{opacity:1}}50%{)}}
   @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
   @keyframes fadeIn{from{opacity:0}to{opacity:1}}
   @keyframes exitUp{to{opacity:0;transform:translateY(-18px)}}
@@ -116,30 +138,30 @@
   #cover{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;padding:30px 0}
   .brand{font-size:54px;font-weight:800;letter-spacing:-.04em;line-height:1;
-    margin-bottom:12px;color:var(--ink-1);animation:fadeUp .6s both}
+    margin-bottom:12px;color:var(--txt-1);animation:fadeUp .6s both}
   #cover h1{font-size:21px;font-weight:700;margin:0 0 8px;
-    color:var(--ink-1);animation:fadeUp .6s .08s both}
-  #cover .sub{font-size:13px;color:var(--ink-3);margin:0 0 30px;animation:fadeUp .6s .14s both}
+    color:var(--txt-1);animation:fadeUp .6s .08s both}
+  #cover .sub{font-size:13px;color:var(--txt-3);margin:0 0 30px;animation:fadeUp .6s .14s both}
   #cover .art{margin:0 0 30px;animation:fadeUp .7s .2s both}
-  #cover .art svg{animation:glow 4.5s ease-in-out infinite}
+  
 
-  #cover .btn{width:100%;max-width:280px;background:var(--gold);color:var(--on-gold);
+  #cover .btn{width:100%;max-width:280px;background:var(--accent);color:var(--on-accent);
     border:0;padding:18px;font-size:17px;font-weight:800;letter-spacing:.1em;
     cursor:pointer;font-family:inherit;animation:fadeUp .6s .3s both;
     transition:opacity .15s,transform .12s}
   #cover .btn:active{opacity:.85;transform:scale(.98)}
-  #cover .meta{margin-top:18px;font-size:13px;color:var(--ink-3);line-height:1.9;
+  #cover .meta{margin-top:18px;font-size:13px;color:var(--txt-3);line-height:1.9;
     animation:fadeUp .6s .38s both}
-  #cover .foot{margin-top:26px;font-size:11.5px;color:var(--ink-3);line-height:1.8;
+  #cover .foot{margin-top:26px;font-size:11.5px;color:var(--txt-3);line-height:1.8;
     animation:fadeUp .6s .46s both}
 
   /* ============ 题目 ============ */
   #quiz{flex:1;display:flex;flex-direction:column;padding:16px 0 24px;animation:fadeIn .35s both}
   .qhead{display:flex;justify-content:flex-end;margin-bottom:6px}
-  .qstep{font-size:12px;color:var(--ink-3);letter-spacing:.1em}
-  .pbar{height:2px;background:var(--border)}
+  .qstep{font-size:12px;color:var(--txt-3);letter-spacing:.1em}
+  .pbar{height:2px;background:var(--line)}
   .pbar i{display:block;height:100%;width:0;
-    background:linear-gradient(90deg,rgba(245,197,24,.4),var(--gold));
+    background:linear-gradient(90deg,rgba(245,197,24,.4),var(--accent));
     transition:width .45s cubic-bezier(.4,0,.2,1)}
 
   .qwrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:4px 0 16px}
@@ -147,13 +169,13 @@
   .qwrap.exit{animation:exitUp .18s ease both}
 
   .moonbar{display:flex;justify-content:center;padding:0 0 14px}
-  .moonbar svg{animation:glow 4.5s ease-in-out infinite}
+  
 
   .qtext{font-size:22px;line-height:1.55;font-weight:700;letter-spacing:-.01em;
-    margin:0 0 24px;color:var(--ink-1);text-align:center}
+    margin:0 0 24px;color:var(--txt-1);text-align:center}
   .opts{display:flex;flex-direction:column;gap:9px}
-  .opt{width:100%;text-align:left;background:var(--bg);color:var(--ink-1);
-    border:1px solid var(--border);padding:16px 18px;min-height:56px;
+  .opt{width:100%;text-align:left;background:var(--bg);color:var(--txt-1);
+    border:1px solid var(--line);padding:16px 18px;min-height:56px;
     font-size:16px;line-height:1.5;font-family:inherit;font-weight:400;
     cursor:pointer;display:flex;align-items:center;gap:12px;
     transition:border-color .2s,background .2s,transform .12s;
@@ -163,51 +185,51 @@
   .opt:nth-child(3){animation-delay:.13s}
   .opt:nth-child(4){animation-delay:.18s}
   .opt::before{content:"";flex:0 0 auto;width:10px;height:10px;border-radius:50%;
-    background:#3A414F;transition:background .2s ease,box-shadow .2s}
+    background:#5E636C;transition:background .2s ease,box-shadow .2s}
   .opt:active{transform:scale(.985)}
-  .opt.sel{border-color:var(--gold);background:var(--gold-soft)}
-  .opt.sel::before{background:var(--gold);box-shadow:0 0 8px rgba(245,197,24,.6)}
+  .opt.sel{border-color:var(--accent);background:rgba(245,197,24,.08)}
+  .opt.sel::before{background:var(--accent);box-shadow:0 0 8px rgba(245,197,24,.6)}
 
   /* ============ 结果 ============ */
   #result{flex:1;padding:22px 0 30px;animation:fadeIn .4s both}
-  .rTop{text-align:center;padding-bottom:24px;border-bottom:1px solid var(--border);margin-bottom:24px}
-  .rKick{font-size:11px;color:var(--gold);letter-spacing:.22em;margin-bottom:12px}
+  .rTop{text-align:center;padding-bottom:24px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .rKick{font-size:11px;color:var(--accent);letter-spacing:.22em;margin-bottom:12px}
   .rName{font-size:38px;font-weight:800;letter-spacing:-.03em;line-height:1.15;
-    margin:0 0 14px;color:var(--ink-1);animation:popIn .55s cubic-bezier(.2,.9,.3,1) .05s both}
-  .rOne{font-size:15px;color:var(--ink-2);line-height:1.75;margin:0}
+    margin:0 0 14px;color:var(--txt-1);animation:popIn .55s cubic-bezier(.2,.9,.3,1) .05s both}
+  .rOne{font-size:15px;color:var(--txt-2);line-height:1.75;margin:0}
 
-  .shareBar{width:100%;background:var(--gold);color:var(--on-gold);border:0;
+  .shareBar{width:100%;background:var(--accent);color:var(--on-accent);border:0;
     padding:17px;font-size:16px;font-weight:800;letter-spacing:.05em;cursor:pointer;
     font-family:inherit;margin:22px 0 24px;transition:opacity .15s,transform .12s}
   .shareBar:active{opacity:.85;transform:scale(.98)}
 
   .feat{list-style:none;padding:0;margin:0 0 22px}
-  .feat li{position:relative;padding:14px 0 14px 24px;border-bottom:1px solid var(--border);
-    font-size:15px;line-height:1.75;color:var(--ink-1)}
+  .feat li{position:relative;padding:14px 0 14px 24px;border-bottom:1px solid var(--line);
+    font-size:15px;line-height:1.75;color:var(--txt-1)}
   .feat li:last-child{border-bottom:0}
   .feat li:before{content:"";position:absolute;left:2px;top:22px;width:7px;height:7px;
-    border-radius:50%;background:var(--gold)}
+    border-radius:50%;background:var(--accent)}
 
   .sec{margin-bottom:22px}
-  .sec h4{margin:0 0 8px;font-size:11px;color:var(--gold);letter-spacing:.18em;font-weight:700}
-  .sec p{margin:0;font-size:15px;line-height:1.8;color:var(--ink-2)}
+  .sec h4{margin:0 0 8px;font-size:11px;color:var(--accent);letter-spacing:.18em;font-weight:700}
+  .sec p{margin:0;font-size:15px;line-height:1.8;color:var(--txt-2)}
 
-  .lock{border:1px solid var(--border);padding:24px 18px;margin:26px 0;
-    text-align:center;background:var(--panel-2)}
-  .lock b{display:block;font-size:16px;margin-bottom:8px;color:var(--ink-1)}
-  .lock p{margin:0 0 18px;font-size:13px;color:var(--ink-3);line-height:1.7}
-  .unlockBtn{width:100%;background:var(--gold);color:var(--on-gold);border:0;
+  .lock{border:1px solid var(--line);padding:24px 18px;margin:26px 0;
+    text-align:center;background:var(--surf-2)}
+  .lock b{display:block;font-size:16px;margin-bottom:8px;color:var(--txt-1)}
+  .lock p{margin:0 0 18px;font-size:13px;color:var(--txt-3);line-height:1.7}
+  .unlockBtn{width:100%;background:var(--accent);color:var(--on-accent);border:0;
     padding:16px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;
     display:block;text-decoration:none;transition:opacity .15s}
   .unlockBtn:active{opacity:.85}
 
   .subs{display:flex;gap:9px;margin-top:10px}
-  .ghost{flex:1;background:transparent;color:var(--ink-2);border:1px solid var(--border);
+  .ghost{flex:1;background:transparent;color:var(--txt-2);border:1px solid var(--line);
     padding:14px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;
     transition:background .15s}
-  .ghost:active{background:var(--panel-2)}
+  .ghost:active{background:var(--surf-2)}
 
-  footer{color:var(--ink-3);font-size:11px;text-align:center;padding:24px 0 16px;line-height:1.8}
+  footer{color:var(--txt-3);font-size:11px;text-align:center;padding:24px 0 16px;line-height:1.8}
 
   @keyframes spin{to{transform:rotate(360deg)}}
   .hidden{display:none!important}
@@ -222,7 +244,7 @@
 
   <section id="cover">
     <div class="brand">sleep</div>
-    <h1>你是怎么睡着的( ˘ω˘ )</h1>
+    <h1>你是怎么睡着的</h1>
     <p class="sub">关灯之后，到你真正睡着之前</p>
 
     <div class="art">
@@ -486,9 +508,9 @@ function expandFull(){
           t.name + '」，但在某些状态下会切到「' + s2.name + '」——' + s2.one + '</p></div>';
   html += '<div style="text-align:center;margin-top:26px">' +
           '<button class="ghost" onclick="showAtlas()" style="width:100%;padding:14px;' +
-          'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
+          'background:transparent;border:1px solid var(--line);color:var(--txt-2);' +
           'font-size:14px;cursor:pointer;font-family:inherit">再看一遍 8 型图鉴</button></div>';
-  html += '<div style="font-size:12px;color:var(--ink-3);text-align:center;margin-top:14px">' +
+  html += '<div style="font-size:12px;color:var(--txt-3);text-align:center;margin-top:14px">' +
           '建议截图保存</div>';
   html += '</div>';
   lock.outerHTML = html;
@@ -502,29 +524,29 @@ function showAtlas(){
   var h = '<div style="padding:10px 0 30px">';
   h += '<div style="text-align:center;margin-bottom:26px">';
   h += '<div style="font-size:11px;color:#F5C518;letter-spacing:.2em;margin-bottom:10px">图鉴</div>';
-  h += '<div style="font-size:26px;font-weight:800;color:var(--ink-1)">8 种睡法</div>';
+  h += '<div style="font-size:26px;font-weight:800;color:var(--txt-1)">8 种睡法</div>';
   h += '</div>';
   var order = ['instant','phone','light','rehearsal','snooze','weekend','sound','early'];
   order.forEach(function(k, i){
     var t = TYPES[k];
     if (!t) return;
-    h += '<div style="border-top:1px solid var(--border);padding:20px 0">';
+    h += '<div style="border-top:1px solid var(--line);padding:20px 0">';
     h += '<div style="display:flex;align-items:baseline;gap:10px;margin-bottom:8px">';
-    h += '<span style="font-size:11px;color:var(--ink-3)">' + String(i+1).padStart(2,'0') + '</span>';
-    h += '<span style="font-size:20px;font-weight:800;color:var(--ink-1)">' + t.name + '</span>';
+    h += '<span style="font-size:11px;color:var(--txt-3)">' + String(i+1).padStart(2,'0') + '</span>';
+    h += '<span style="font-size:20px;font-weight:800;color:var(--txt-1)">' + t.name + '</span>';
     h += '</div>';
     h += '<div style="font-size:13px;color:#F5C518;margin-bottom:8px">' + t.rare + '</div>';
-    h += '<div style="font-size:14px;color:var(--ink-2);line-height:1.75;margin-bottom:10px">' + t.one + '</div>';
+    h += '<div style="font-size:14px;color:var(--txt-2);line-height:1.75;margin-bottom:10px">' + t.one + '</div>';
     var b2 = TYPES[t.buddy], c2 = TYPES[t.clash];
     if (b2 && c2){
-      h += '<div style="font-size:12.5px;color:var(--ink-3);line-height:1.8">' +
-           '好搭子：<span style="color:#2ecf4b">' + b2.name + '</span></div>';
+      h += '<div style="font-size:12.5px;color:var(--txt-3);line-height:1.8">' +
+           '好搭子：<span style="color:var(--txt-2)">' + b2.name + '</span></div>';
     }
     h += '</div>';
   });
   h += '<div style="text-align:center;margin-top:28px">';
   h += '<button class="ghost" onclick="location.reload()" style="width:100%;padding:14px;' +
-       'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
+       'background:transparent;border:1px solid var(--line);color:var(--txt-2);' +
        'font-size:14px;cursor:pointer;font-family:inherit">返回我的结果</button>';
   h += '</div></div>';
   box.innerHTML = h;
@@ -575,18 +597,18 @@ function showResult(){
   var bt = TYPES[t.buddy], ct = TYPES[t.clash];
   h += '<div class="sec" style="margin-top:24px"><h4>和谁一起睡最舒服</h4>';
   if (bt){
-    h += '<div style="border:1px solid #2f6b3a;background:rgba(46,207,75,.06);padding:14px 16px;margin-bottom:10px">';
-    h += '<div style="font-size:13px;color:#2ecf4b;margin-bottom:6px">最好搭 · ' + bt.name + '</div>';
-    h += '<div style="font-size:13.5px;color:var(--ink-2);line-height:1.75">' + t.buddyWhy + '</div>';
+    h += '<div style="border:1px solid var(--line);background:var(--surf-2);padding:16px;margin-bottom:8px;border-radius:10px">';
+    h += '<div style="font-size:13px;color:var(--accent);margin-bottom:8px">最好搭 · ' + bt.name + '</div>';
+    h += '<div style="font-size:13.5px;color:var(--txt-2);line-height:1.75">' + t.buddyWhy + '</div>';
     h += '</div>';
   }
-  h += '<div style="font-size:11.5px;color:var(--ink-3);margin-top:10px;line-height:1.7">' +
+  h += '<div style="font-size:11.5px;color:var(--txt-3);margin-top:10px;line-height:1.7">' +
        '依据：入睡速度、对环境的要求、作息时间。</div>';
   h += '</div>';
 
   /* 图鉴 —— 免费可见 */
   h += '<button class="ghost" onclick="showAtlas()" style="width:100%;padding:14px;' +
-       'background:transparent;border:1px solid var(--border);color:var(--ink-2);' +
+       'background:transparent;border:1px solid var(--line);color:var(--txt-2);' +
        'font-size:14px;cursor:pointer;font-family:inherit;margin:6px 0 22px">' +
        '看看 8 种睡法都是什么 →</button>';
 
@@ -603,12 +625,12 @@ function showResult(){
     } else if (WX){
       h += '<button class="unlockBtn" id="showqr">看完整结果 · ¥9.9</button>';
       h += '<div id="qrbox" style="display:none;margin-top:18px">';
-      h +=   '<div style="background:#fff;padding:10px;display:inline-block;border-radius:4px">' +
+      h +=   '<div style="background:#fff;padding:10px;display:inline-block;border-radius:10px">' +
              '<img src="pay.png" alt="收款码" style="width:180px;height:auto;display:block" ' +
              'onerror="this.parentNode.style.display=&quot;none&quot;">' +
              '</div>';
-      h +=   '<div style="font-size:13.5px;color:var(--ink-1);margin-top:16px;line-height:2;text-align:left;' +
-             'background:rgba(255,255,255,.03);padding:14px 16px;border:1px solid var(--border)">' +
+      h +=   '<div style="font-size:13.5px;color:var(--txt-1);margin-top:16px;line-height:2;text-align:left;' +
+             'background:rgba(255,255,255,.03);padding:14px 16px;border:1px solid var(--line)">' +
              '<span style="color:#F5C518">①</span> 长按上面的码，保存到相册<br>' +
              '<span style="color:#F5C518">②</span> 打开支付宝，点右上角「扫一扫」' +
              '</div>';
@@ -657,10 +679,10 @@ function showResult(){
       var left = total;
       wb.innerHTML =
         '<div style="width:38px;height:38px;margin:0 auto 14px;border-radius:50%;' +
-          'border:3px solid #2A303C;border-top-color:#F5C518;' +
+          'border:3px solid #343A44;border-top-color:#F5C518;' +
           'animation:spin 0.9s linear infinite"></div>' +
-        '<div style="font-size:13px;color:var(--ink-2);line-height:1.7">正在确认支付</div>' +
-        '<div style="font-size:11.5px;color:var(--ink-3);margin-top:3px">支付可能有延迟，请稍候</div>';
+        '<div style="font-size:13px;color:var(--txt-2);line-height:1.7">正在确认支付</div>' +
+        '<div style="font-size:11.5px;color:var(--txt-3);margin-top:3px">支付可能有延迟，请稍候</div>';
       /* 按真实经过的时间判断：切出去付款也算数，回来够 20 秒就立刻解锁 */
       var startTs = Date.now();
       var unlocked = false;
@@ -718,7 +740,7 @@ function drawCard(r){
   var g = cv.getContext("2d");
   var F = "-apple-system,'PingFang SC','Microsoft YaHei',sans-serif";
 
-  g.fillStyle = "#0B0D12"; g.fillRect(0, 0, W, H);
+  g.fillStyle = "#0F1115"; g.fillRect(0, 0, W, H);
 
   // 星星
   var stars = [[80,120],[220,90],[380,150],[560,80],[700,140],[900,100],[1010,170],[140,300],[420,260],[640,320],[860,280]];
@@ -727,34 +749,34 @@ function drawCard(r){
     g.beginPath(); g.arc(s[0], s[1], i % 4 === 0 ? 3 : 2, 0, Math.PI * 2); g.fill();
   });
 
-  g.fillStyle = "#EDEAE2"; g.font = "bold 58px " + F;
+  g.fillStyle = "#EDEDE8"; g.font = "bold 58px " + F;
   g.fillText("sleep", 72, 138);
-  g.fillStyle = "#6B7280"; g.font = "28px " + F;
+  g.fillStyle = "#5E636C"; g.font = "28px " + F;
   g.fillText("你是怎么睡着的", 72, 190);
 
-  g.strokeStyle = "#2A303C"; g.lineWidth = 2;
+  g.strokeStyle = "#343A44"; g.lineWidth = 2;
   g.beginPath(); g.moveTo(72, 250); g.lineTo(W - 72, 250); g.stroke();
 
   g.fillStyle = "#F5C518"; g.font = "bold 24px " + F;
   g.fillText("你的睡眠人格 · " + t.rare, 72, 336);
 
-  g.fillStyle = "#EDEAE2"; g.font = "bold 90px " + F;
+  g.fillStyle = "#EDEDE8"; g.font = "bold 90px " + F;
   g.fillText(t.name, 72, 452);
 
-  g.fillStyle = "#9BA1AD"; g.font = "29px " + F;
+  g.fillStyle = "#8A8F98"; g.font = "29px " + F;
   var y = wrapText(g, t.one, 72, 530, W - 144, 46) + 36;
 
   g.font = "28px " + F;
   t.feat.slice(0, 3).forEach(function(f){
     g.fillStyle = "#F5C518";
     g.beginPath(); g.arc(84, y - 9, 6, 0, Math.PI * 2); g.fill();
-    g.fillStyle = "#EDEAE2";
+    g.fillStyle = "#EDEDE8";
     y = wrapText(g, f, 112, y, W - 210, 44) + 20;
   });
 
-  g.strokeStyle = "#2A303C"; g.beginPath();
+  g.strokeStyle = "#343A44"; g.beginPath();
   g.moveTo(72, H - 180); g.lineTo(W - 72, H - 180); g.stroke();
-  g.fillStyle = "#6B7280"; g.font = "26px " + F;
+  g.fillStyle = "#5E636C"; g.font = "26px " + F;
   g.fillText("你也测测，看是不是同一型", 72, H - 124);
   g.fillStyle = "#F5C518"; g.font = "bold 26px " + F;
   g.fillText("[ 你的链接 ]", 72, H - 80);
@@ -767,12 +789,12 @@ function drawCard(r){
   if (!m || !TYPES[m[1]]) return;
   var t = TYPES[m[1]];
   var bar = document.createElement("div");
-  bar.style.cssText = "background:#15181F;border:1px solid #2A303C;padding:18px;" +
+  bar.style.cssText = "background:#181B21;border:1px solid #343A44;padding:18px;" +
     "margin-bottom:24px;text-align:left;width:100%;animation:fadeUp .45s both";
-  bar.innerHTML = '<div style="font-size:11px;color:#6B7280;letter-spacing:.18em;margin-bottom:7px">你的朋友测出来是</div>' +
+  bar.innerHTML = '<div style="font-size:11px;color:#5E636C;letter-spacing:.18em;margin-bottom:7px">你的朋友测出来是</div>' +
     '<div style="font-size:26px;font-weight:800;color:#F5C518;margin-bottom:5px">' + t.name + '</div>' +
-    '<div style="font-size:13px;color:#9BA1AD;line-height:1.7">' + t.one + '</div>' +
-    '<div style="margin-top:12px;font-size:13px;color:#EDEAE2;font-weight:700">你也测一下，看是不是同一型 ↓</div>';
+    '<div style="font-size:13px;color:#8A8F98;line-height:1.7">' + t.one + '</div>' +
+    '<div style="margin-top:12px;font-size:13px;color:#EDEDE8;font-weight:700">你也测一下，看是不是同一型 ↓</div>';
   document.getElementById("cover").insertBefore(bar, document.getElementById("cover").firstChild);
 })();
 
